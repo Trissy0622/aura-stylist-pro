@@ -1,0 +1,2592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Aura Stylist Pro | Light Me 16型私人高定造型师</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FDFBF9;
+      --text-espresso: #2D241E;
+      --accent-terracotta: #8E443D;
+      --border-sand: #EAE2D6;
+      --card-warm: #F8F5F2;
+    }
+    body {
+      background-color: #161210;
+      color: var(--text-espresso);
+      font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .serif-title {
+      font-family: 'Noto Serif SC', serif;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .glass-nav {
+      background: rgba(253, 251, 249, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 0.45rem;
+    }
+    @keyframes pulseBorder {
+      0%, 100% { border-color: rgba(142, 68, 61, 0.9); }
+      50% { border-color: rgba(217, 173, 152, 0.4); }
+    }
+    .scanning-box {
+      animation: pulseBorder 1.5s infinite;
+    }
+    /* 10种高定混合花色与图腾拟真CSS纹理 */
+    .pat-houndstooth {
+      background-color: #F5F2EB;
+      background-image:
+        linear-gradient(45deg, #4E3629 25%, transparent 25%, transparent 75%, #4E3629 75%, #4E3629),
+        linear-gradient(45deg, #4E3629 25%, #C6B39E 25%, #C6B39E 75%, #4E3629 75%, #4E3629);
+      background-size: 14px 14px;
+      background-position: 0 0, 7px 7px;
+    }
+    .pat-polkadot {
+      background-color: #352822;
+      background-image: radial-gradient(#F5F2EB 22%, transparent 24%), radial-gradient(#D9C1AC 22%, transparent 24%);
+      background-size: 16px 16px;
+      background-position: 0 0, 8px 8px;
+    }
+    .pat-leopard {
+      background-color: #C89D54;
+      background-image:
+        radial-gradient(circle at 25% 30%, #352822 14%, #8F5830 16%, #8F5830 26%, transparent 28%),
+        radial-gradient(circle at 75% 65%, #352822 12%, #7D4B28 15%, #7D4B28 24%, transparent 26%),
+        radial-gradient(circle at 60% 20%, #3E2723 10%, transparent 13%),
+        radial-gradient(circle at 25% 80%, #3E2723 11%, transparent 14%);
+      background-size: 24px 24px;
+    }
+    .pat-zebra {
+      background: repeating-linear-gradient(115deg, #3E2723 0px, #3E2723 5px, #EFECE6 5px, #EFECE6 11px, #4E3629 11px, #4E3629 14px, #E5DACB 14px, #E5DACB 20px);
+    }
+    .pat-fairisle {
+      background:
+        repeating-linear-gradient(90deg, rgba(245,242,235,0.35) 0px, rgba(245,242,235,0.35) 3px, transparent 3px, transparent 6px),
+        linear-gradient(180deg, #4B5332 0%, #4B5332 25%, #A65E4E 25%, #A65E4E 50%, #F5F2EB 50%, #F5F2EB 75%, #C89D3E 75%, #C89D3E 100%);
+      background-size: 12px 24px;
+    }
+    .pat-tiedye {
+      background: radial-gradient(circle at 20% 25%, #A65E4E 0%, #C89D54 38%, #78826D 72%, #F5F2EB 100%);
+    }
+    .pat-tweed {
+      background-color: #634A3A;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(245,242,235,0.45) 0px, rgba(245,242,235,0.45) 2px, transparent 2px, transparent 5px),
+        repeating-linear-gradient(90deg, rgba(212,175,55,0.4) 0px, rgba(212,175,55,0.4) 2px, transparent 2px, transparent 6px),
+        repeating-linear-gradient(45deg, rgba(166,94,78,0.35) 0px, rgba(166,94,78,0.35) 2px, transparent 2px, transparent 8px);
+    }
+    .pat-glenplaid {
+      background-color: #D8C6B2;
+      background-image:
+        linear-gradient(90deg, rgba(62,39,35,0.5) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(62,39,35,0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(152,62,43,0.45) 2px, transparent 2px),
+        linear-gradient(180deg, rgba(152,62,43,0.45) 2px, transparent 2px);
+      background-size: 8px 8px, 8px 8px, 24px 24px, 24px 24px;
+    }
+    .pat-tortoise {
+      background: radial-gradient(circle at 35% 35%, #D48B28 0%, #8F4716 32%, #3B2010 68%, #1F1108 100%);
+    }
+    .pat-herringbone {
+      background-color: #9E8E82;
+      background-image:
+        repeating-linear-gradient(45deg, rgba(53,40,34,0.35) 0px, rgba(53,40,34,0.35) 3px, transparent 3px, transparent 7px),
+        repeating-linear-gradient(-45deg, rgba(245,242,235,0.35) 0px, rgba(245,242,235,0.35) 3px, transparent 3px, transparent 7px);
+    }
+  </style>
+</head>
+<body class="flex justify-center items-start min-h-screen">
+
+  <!-- 手机端主视口容器 -->
+  <div class="w-full max-w-md min-h-screen bg-[#FDFBF9] flex flex-col relative shadow-2xl overflow-hidden">
+
+    <!-- 顶部高定导航栏 -->
+    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-[#EAE2D6] px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl bg-[#2D241E] flex items-center justify-center text-[#D9AD98] shadow-sm border border-[#8E443D]/40">
+          <i data-lucide="crown" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <h1 class="serif-title font-bold text-base tracking-tight text-[#2D241E]">AURA STYLIST</h1>
+            <span class="text-[9px] font-bold bg-[#8E443D] text-white px-1.5 py-0.5 rounded">16型高定版</span>
+          </div>
+          <p class="text-[10px] text-gray-400 tracking-wider">暖秋型 (Warm Autumn) · 166cm 纤细梨形</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <button onclick="openModal('reportModal')" class="px-2.5 py-1.5 rounded-full bg-[#F8F5F2] border border-[#EAE2D6] text-[10px] font-bold text-[#8E443D] flex items-center gap-1 active:scale-95 transition">
+          <i data-lucide="file-badge" class="w-3.5 h-3.5"></i> 测评证书
+        </button>
+      </div>
+    </header>
+
+    <!-- 主内容滚动视图 -->
+    <main class="flex-1 overflow-y-auto pb-28 px-4 pt-4 space-y-5 no-scrollbar">
+
+      <!-- =========================================================================
+           TAB 1: 首页 · 造型师毒舌寄语 + 60色高定色卡 + 首饰与彩妆基因
+      ========================================================================== -->
+      <div id="tab-home" class="tab-content active space-y-5">
+
+        <!-- 私人造型师独白卡片 -->
+        <section class="bg-gradient-to-br from-[#2D241E] via-[#382C25] to-[#1F1814] text-white rounded-3xl p-5 shadow-xl relative overflow-hidden border border-[#8E443D]/30">
+          <div class="relative z-10 space-y-3">
+            <div class="flex justify-between items-start">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-[#8E443D] flex items-center justify-center text-white font-bold text-xs ring-2 ring-[#D9AD98]/40">
+                  A
+                </div>
+                <div>
+                  <span class="text-[10px] uppercase tracking-widest text-[#D9AD98] font-bold block">Chief Stylist Manifesto</span>
+                  <h2 class="text-xs font-bold text-white">主理人 Aura 致您的私人备忘录</h2>
+                </div>
+              </div>
+              <span class="text-[9px] bg-white/10 text-gray-300 px-2 py-0.5 rounded-full backdrop-blur-sm">眼光犀利 · 拒绝平庸</span>
+            </div>
+
+            <div class="p-3.5 bg-white/5 rounded-2xl border border-white/10 space-y-2 text-xs leading-relaxed text-gray-200">
+              <p class="serif-title text-sm font-bold text-[#D9AD98]">“亲爱的，请立刻停止用宽松黑卫衣和冷白T恤敷衍你166cm的绝佳骨相！”</p>
+              <p class="text-[11px] opacity-90">
+                你有令无数人羡慕的 <strong>72cm 紧致上腰线</strong> 和 <strong>深邃黑瞳</strong>，但 <strong>76cm 窄胸与 93.5cm 宽胯</strong> 的梨形落差，加上暖橘调肤色和微宽腮帮，决定了你一旦穿错“软塌贴肉裤”或“冰蓝/荧光粉/贝壳蓝”，就会瞬间显得头重脚轻、面色暗黄。
+              </p>
+              <p class="text-[11px] opacity-90">
+                记住我的铁律：<strong>上身用挺括正肩、胸袋与暖调光泽做“加法”，下半身用垂坠阔腿与A字线条做“减法”，耳畔锁死大点位暖金珠把视线往上提。</strong> 41岁不是穿得像个老气横秋的干部，而是穿出 The Row 和汤唯那种“明明没用力，却贵得让人不敢造次”的智性统治力。
+              </p>
+            </div>
+
+            <!-- 底部身体核心数据微标签 -->
+            <div class="grid grid-cols-4 gap-1.5 pt-1 text-center">
+              <div class="bg-white/10 rounded-xl py-1.5 px-1">
+                <p class="text-[9px] text-gray-400">窄胸需扩容</p>
+                <p class="text-xs font-bold text-[#D9AD98]">76cm</p>
+              </div>
+              <div class="bg-white/10 rounded-xl py-1.5 px-1">
+                <p class="text-[9px] text-gray-400">黄金细腰</p>
+                <p class="text-xs font-bold text-white">72cm</p>
+              </div>
+              <div class="bg-white/10 rounded-xl py-1.5 px-1">
+                <p class="text-[9px] text-gray-400">宽胯需隐形</p>
+                <p class="text-xs font-bold text-[#D9AD98]">93.5cm</p>
+              </div>
+              <div class="bg-white/10 rounded-xl py-1.5 px-1">
+                <p class="text-[9px] text-gray-400">宽腮娃娃脸</p>
+                <p class="text-xs font-bold text-emerald-300">纵向提拉</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Light Me 16型色彩测评摘要横幅 -->
+        <section class="bg-white rounded-3xl p-4 border border-[#EAE2D6] shadow-sm flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#8E443D] to-[#C87D55] text-white flex flex-col items-center justify-center shrink-0 shadow-inner">
+              <span class="text-[8px] font-bold uppercase tracking-tighter">16-TYPE</span>
+              <span class="text-xs font-black">暖秋</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <h3 class="text-xs font-bold text-[#2D241E]">Light Me 16型色彩基因报告</h3>
+                <span class="text-[9px] font-bold bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded">Warm Autumn</span>
+              </div>
+              <p class="text-[10px] text-gray-400 mt-0.5">测评时间：2026-03-15 14:30 · 匹配度 99.2%</p>
+            </div>
+          </div>
+          <button onclick="openModal('reportModal')" class="px-3 py-2 rounded-xl bg-[#2D241E] text-white text-[10px] font-bold shrink-0 active:scale-95 transition">
+            完整报告
+          </button>
+        </section>
+
+        <!-- 60色高定服饰推荐色卡 (分6大色系展示) -->
+        <section class="bg-white rounded-3xl p-5 border border-[#EAE2D6] shadow-sm space-y-4">
+          <div class="flex justify-between items-end">
+            <div>
+              <span class="text-[10px] font-bold text-[#8E443D] uppercase tracking-wider">60 Bespoke Wardrobe Colors</span>
+              <h3 class="text-sm font-bold text-[#2D241E] mt-0.5">您的 60 色高定服饰色谱（分色系）</h3>
+            </div>
+            <span class="text-[10px] text-gray-400" id="swatchCountBadge">共 60 色 · 点击看用法</span>
+          </div>
+
+          <!-- 6大色系分类切换胶囊 -->
+          <div class="flex gap-1.5 overflow-x-auto no-scrollbar pb-1" id="colorCategoryTabs">
+            <button onclick="filter60Colors('all', this)" class="cat-tab active shrink-0 px-3 py-1.5 rounded-full text-[11px] font-bold bg-[#8E443D] text-white transition">全部 60色</button>
+            <button onclick="filter60Colors('neutral', this)" class="cat-tab shrink-0 px-3 py-1.5 rounded-full text-[11px] font-bold bg-[#F8F5F2] text-gray-600 transition">高智中性 (10)</button>
+            <button onclick="filter60Colors('brown', this)" class="cat-tab shrink-0 px-3 py-1.5 rounded-full text-[11px] font-bold bg-[#F8F5F2] text-gray-600 transition">大地金棕 (10)</button>
+            <button onclick="filter60Colors('red', this)" class="cat-tab shrink-0 px-3 py-1.5 rounded-full text-[11px] font-bold bg-[#F8F5F2] text-gray-600 transition">陶土砖红 (10)</button>
+            <button onclick="filter60Colors('green', this)" class="cat-tab shrink-0 px-3 py-1.5 rounded-full text-[11px] font-bold bg-[#F8F5F2] text-gray-600 transition">森林橄榄 (10)</button>
+            <button onclick="filter60Colors('gold', this)" class="cat-tab shrink-0 px-3 py-1.5 rounded-full text-[11px] font-bold bg-[#F8F5F2] text-gray-600 transition">芥末暖金 (10)</button>
+            <button onclick="filter60Colors('teal', this)" class="cat-tab shrink-0 px-3 py-1.5 rounded-full text-[11px] font-bold bg-[#F8F5F2] text-gray-600 transition">复古青梅 (10)</button>
+          </div>
+
+          <!-- 选定单色详情提示条 -->
+          <div id="selectedColorBanner" class="p-3 bg-[#F8F5F2] rounded-2xl border border-[#EAE2D6] flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div id="activeSwatchBox" class="w-10 h-10 rounded-xl shadow-inner border border-black/10 shrink-0" style="background-color: #F5F2EB;"></div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <p id="activeSwatchName" class="text-xs font-bold text-[#2D241E] truncate">#01 奶油珍珠白</p>
+                  <span id="activeSwatchGroup" class="text-[9px] bg-[#8E443D]/10 text-[#8E443D] px-1.5 py-0.5 rounded font-bold shrink-0">高智中性</span>
+                </div>
+                <p id="activeSwatchUse" class="text-[10px] text-gray-500 truncate mt-0.5">最佳上装反光板色，替代刺眼纯白，丰盈76cm窄胸。</p>
+              </div>
+            </div>
+            <span id="activeSwatchHex" class="text-[10px] font-mono text-gray-400 shrink-0">#F5F2EB</span>
+          </div>
+
+          <!-- 60色矩阵网格容器 -->
+          <div id="sixtyColorContainer" class="space-y-4 max-h-80 overflow-y-auto pr-1 no-scrollbar">
+            <!-- 由 JS 动态渲染 60 个色块 -->
+          </div>
+        </section>
+
+        <!-- 新增：高定混色肌理与经典图腾指南 (千鸟格/波点/豹纹/斑马纹/费尔岛/沾染等 10 大花色) -->
+        <section class="bg-white rounded-3xl p-5 border border-[#EAE2D6] shadow-sm space-y-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-[10px] font-bold text-[#8E443D] uppercase tracking-wider">Bespoke Pattern & Print Matrix</span>
+              <h3 class="text-sm font-bold text-[#2D241E] mt-0.5">高定混色肌理 & 经典图腾配色指南</h3>
+              <p class="text-[10px] text-gray-500 mt-0.5">核心铁律：将传统“冷黑白图案”全面暖化为“浓咖+奶油米”，图案放上半身更能丰盈76cm窄胸！</p>
+            </div>
+            <span class="text-[9px] font-bold bg-[#8E443D]/10 text-[#8E443D] px-2 py-0.5 rounded-full shrink-0">10大混搭图腾</span>
+          </div>
+
+          <!-- 10种花色横向滑动/网格选择器 -->
+          <div id="patternSwatchGrid" class="grid grid-cols-5 gap-2">
+            <!-- 由 JS 动态渲染 10 个拟真纹理色块 -->
+          </div>
+
+          <!-- 当前选定花色深度解析卡片 -->
+          <div id="activePatternCard" class="p-4 bg-[#F8F5F2] rounded-2xl border border-[#EAE2D6] space-y-2.5">
+            <!-- 由 JS 动态渲染 -->
+          </div>
+        </section>
+
+        <!-- 首饰配饰推荐色 & 彩妆推荐色双矩阵 -->
+        <section class="grid grid-cols-1 gap-4">
+          <!-- 首饰与皮具配饰推荐色 -->
+          <div class="bg-white rounded-3xl p-5 border border-[#EAE2D6] shadow-sm space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-bold text-[#8E443D] uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="gem" class="w-4 h-4"></i> 首饰珠宝 & 鞋包配饰推荐色
+              </h3>
+              <span class="text-[10px] text-gray-400">忌冷亮银 / 忌冷白钻托</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2 text-center text-[10px]">
+              <div class="p-2.5 bg-[#F8F5F2] rounded-2xl space-y-1">
+                <div class="w-8 h-8 rounded-full mx-auto shadow-inner border border-black/10" style="background: linear-gradient(135deg, #D4AF37, #AA7C11);"></div>
+                <p class="font-bold text-[#2D241E]">18K哑光拉丝金</p>
+                <p class="text-[9px] text-gray-500">最衬暖橘底肤色</p>
+              </div>
+              <div class="p-2.5 bg-[#F8F5F2] rounded-2xl space-y-1">
+                <div class="w-8 h-8 rounded-full mx-auto shadow-inner border border-black/10" style="background: radial-gradient(circle at 30% 30%, #E8D0A9, #8C6D46, #4A5D4E);"></div>
+                <p class="font-bold text-[#2D241E]">爱迪生怪色孔雀金</p>
+                <p class="text-[9px] text-gray-500">10-11mm 视觉提拉</p>
+              </div>
+              <div class="p-2.5 bg-[#F8F5F2] rounded-2xl space-y-1">
+                <div class="w-8 h-8 rounded-full mx-auto shadow-inner border border-black/10" style="background: radial-gradient(circle at 30% 30%, #FFFDF2, #E6D2B5);"></div>
+                <p class="font-bold text-[#2D241E]">南洋香槟金珠</p>
+                <p class="text-[9px] text-gray-500">巴洛克异形最佳</p>
+              </div>
+              <div class="p-2.5 bg-[#F8F5F2] rounded-2xl space-y-1">
+                <div class="w-8 h-8 rounded-full mx-auto shadow-inner border border-black/10" style="background-color: #6E473B;"></div>
+                <p class="font-bold text-[#2D241E]">琥珀玳瑁棕</p>
+                <p class="text-[9px] text-gray-500">大框墨镜/抓夹首选</p>
+              </div>
+              <div class="p-2.5 bg-[#F8F5F2] rounded-2xl space-y-1">
+                <div class="w-8 h-8 rounded-full mx-auto shadow-inner border border-black/10" style="background-color: #3B2820;"></div>
+                <p class="font-bold text-[#2D241E]">苦浓咖啡皮具</p>
+                <p class="text-[9px] text-gray-500">乐福鞋/腰带托底</p>
+              </div>
+              <div class="p-2.5 bg-[#F8F5F2] rounded-2xl space-y-1">
+                <div class="w-8 h-8 rounded-full mx-auto shadow-inner border border-black/10" style="background-color: #9A7B56;"></div>
+                <p class="font-bold text-[#2D241E]">复古黄铜古金</p>
+                <p class="text-[9px] text-gray-500">大衣金属扣/手镯</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 彩妆与美甲专属推荐色 -->
+          <div class="bg-white rounded-3xl p-5 border border-[#EAE2D6] shadow-sm space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-bold text-[#8E443D] uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="sparkles" class="w-4 h-4"></i> 骨相彩妆 & 美甲本命色盘
+              </h3>
+              <span class="text-[10px] text-emerald-700 font-bold">已验证显白单品</span>
+            </div>
+            <div class="space-y-2 text-xs">
+              <div class="p-3 bg-[#F8F5F2] rounded-2xl flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-7 h-7 rounded-lg shadow-inner shrink-0" style="background-color: #4E3629;"></div>
+                  <div>
+                    <p class="font-bold text-[#2D241E]">眉部：Bobbi Brown #02 桃褐 (Mahogany)</p>
+                    <p class="text-[10px] text-gray-500">暖红调深褐，柔化黑发硬朗感；眉尾上挑2mm提拉面部</p>
+                  </div>
+                </div>
+                <span class="text-[9px] font-bold bg-white px-2 py-0.5 rounded border border-[#EAE2D6]">忌3号冷灰</span>
+              </div>
+              <div class="p-3 bg-[#F8F5F2] rounded-2xl flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-7 h-7 rounded-lg shadow-inner shrink-0" style="background-color: #A66E5E;"></div>
+                  <div>
+                    <p class="font-bold text-[#2D241E]">腮红：Rhode #Toasted Teddy 泰迪陶土棕</p>
+                    <p class="text-[10px] text-gray-500">颧骨向太阳穴C字斜扫，紧致宽腮帮，自带日晒高级感</p>
+                  </div>
+                </div>
+                <span class="text-[9px] font-bold bg-white px-2 py-0.5 rounded border border-[#EAE2D6]">忌冷粉紫</span>
+              </div>
+              <div class="p-3 bg-[#F8F5F2] rounded-2xl flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-7 h-7 rounded-lg shadow-inner shrink-0" style="background-color: #AE5B53;"></div>
+                  <div>
+                    <p class="font-bold text-[#2D241E]">唇妆：红棕肉桂 / 烤枫叶砖红 / 暖杏奶茶</p>
+                    <p class="text-[10px] text-gray-500">微哑光或润泽质地，与深黑瞳孔形成高智感中高对比度</p>
+                  </div>
+                </div>
+                <span class="text-[9px] font-bold bg-white px-2 py-0.5 rounded border border-[#EAE2D6]">本命提气</span>
+              </div>
+              <div class="p-3 bg-[#F8F5F2] rounded-2xl flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <div class="flex -space-x-1.5 shrink-0">
+                    <div class="w-7 h-7 rounded-lg shadow-inner border border-white" style="background-color: #9A5B53;"></div>
+                    <div class="w-7 h-7 rounded-lg shadow-inner border border-white" style="background-color: #78826D;"></div>
+                  </div>
+                  <div>
+                    <p class="font-bold text-[#2D241E]">足部美甲：SHIRO #1I03 陶土肉桂 & 鼠尾草绿</p>
+                    <p class="text-[10px] text-gray-500">拯救偏黑偏黄脚背，温润显白不突兀（彻底告别贝壳蓝）</p>
+                  </div>
+                </div>
+                <span class="text-[9px] font-bold bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded">9.9分王牌</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 新增板块：暖秋型 × 梨形宽腮 禁忌色与禁忌搭配死刑黑名单 -->
+        <section class="bg-gradient-to-b from-rose-50/90 to-white rounded-3xl p-5 border-2 border-rose-200/80 shadow-sm space-y-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-[10px] font-bold text-rose-700 uppercase tracking-wider flex items-center gap-1">
+                <i data-lucide="skull" class="w-3.5 h-3.5"></i> Taboo Colors & Fatal Combos
+              </span>
+              <h3 class="text-sm font-bold text-[#2D241E] mt-0.5">禁忌色 & 禁忌搭配「死刑黑名单」</h3>
+              <p class="text-[10px] text-gray-500 mt-0.5">主理人铁律：碰以下任何一项，再贵的衣服也会让你显黑三度、胯宽十斤！</p>
+            </div>
+            <span class="text-[9px] font-bold bg-rose-600 text-white px-2 py-0.5 rounded-full shrink-0">终身避雷</span>
+          </div>
+
+          <!-- 18个禁忌雷区色卡 (点击查看为什么显黑显脏) -->
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <p class="text-[10px] font-bold text-rose-800 uppercase">一、18大绝对禁忌色卡（点击色块看翻车原理）</p>
+              <span class="text-[9px] text-gray-400">冷调 / 荧光 / 苍白粉蓝</span>
+            </div>
+            <div id="tabooColorGrid" class="grid grid-cols-6 gap-2">
+              <!-- 由 JS 动态渲染 18 个带禁行标志的禁忌色 -->
+            </div>
+            <div id="activeTabooBanner" class="p-3 bg-rose-100/70 rounded-2xl border border-rose-200 flex items-center gap-3">
+              <div id="activeTabooSwatch" class="w-10 h-10 rounded-xl shadow-inner border border-black/10 shrink-0 relative flex items-center justify-center" style="background-color: #D31E76;">
+                <span class="text-white font-black text-xs drop-shadow">✕</span>
+              </div>
+              <div class="min-w-0 flex-1">
+                <p id="activeTabooName" class="text-xs font-bold text-rose-950">#禁忌01 电光火龙果粉 (图2美甲踩雷色)</p>
+                <p id="activeTabooReason" class="text-[10px] text-rose-800 leading-relaxed mt-0.5">高饱和冷调荧光粉与暖黄底色剧烈冲突，瞬间把皮肤衬托得又黑又糙。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6大禁忌穿搭组合（红黑榜直观对比） -->
+          <div class="space-y-2.5 pt-1">
+            <p class="text-[10px] font-bold text-rose-800 uppercase">二、6大梨形身材 × 娃娃脸禁忌搭配公式</p>
+            <div id="tabooComboList" class="space-y-2.5">
+              <!-- 由 JS 动态渲染 6 大禁忌穿搭卡片 -->
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- =========================================================================
+           TAB 2: 拍我的穿搭 · 实拍毒舌造型点评 & 急救优化建议
+      ========================================================================== -->
+      <div id="tab-audit" class="tab-content space-y-4">
+        <section class="bg-white rounded-3xl p-5 border border-[#EAE2D6] shadow-sm space-y-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-[10px] font-bold text-[#8E443D] uppercase tracking-wider">My Outfit Mirror Critique</span>
+              <h2 class="text-base font-bold text-[#2D241E] mt-0.5">拍下我的穿搭 · 犀利点评与优化处方</h2>
+              <p class="text-[11px] text-gray-500 mt-0.5">出门前对镜拍一张发给我！我帮您毒舌把关【肤色显白度、76/72/93.5比例、宽腮帮修饰】并给出3步急救优化方案</p>
+            </div>
+            <i data-lucide="camera" class="w-6 h-6 text-[#8E443D]"></i>
+          </div>
+
+          <!-- 拍照或上传触发区 -->
+          <div class="relative">
+            <input type="file" id="auditFileInput" accept="image/*" class="hidden" onchange="handleAuditPhotoUpload(event)" />
+            <div onclick="document.getElementById('auditFileInput').click()" id="auditUploadDropzone" class="border-2 border-dashed border-[#8E443D]/40 bg-[#F8F5F2] rounded-3xl p-5 text-center cursor-pointer hover:border-[#8E443D] transition space-y-2">
+              <div id="auditPreviewWrap" class="hidden relative mx-auto w-48 h-60 rounded-2xl overflow-hidden shadow-md border border-[#EAE2D6]">
+                <img id="auditPreviewImg" src="" alt="预览" class="w-full h-full object-cover" />
+                <div class="absolute bottom-0 inset-x-0 bg-black/60 text-white text-[10px] py-1">点击更换您的穿搭照</div>
+              </div>
+              <div id="auditUploadPlaceholder" class="py-3 space-y-2">
+                <div class="w-12 h-12 rounded-2xl bg-[#8E443D]/10 text-[#8E443D] flex items-center justify-center mx-auto">
+                  <i data-lucide="camera" class="w-6 h-6"></i>
+                </div>
+                <p class="text-xs font-bold text-[#2D241E]">点击拍摄/上传您的今日穿搭自拍 或 试穿照</p>
+                <p class="text-[10px] text-gray-400">主理人将一针见血指出问题，并给出不动刀的“换鞋/塞衣角/加配饰”急救方案</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 预设典型案例快速体验栏 -->
+          <div class="space-y-1.5">
+            <p class="text-[10px] font-bold text-gray-400 uppercase">点击查看您的典型实拍/选款点评示范：</p>
+            <div class="flex gap-1.5 overflow-x-auto no-scrollbar pb-1">
+              <button onclick="loadPresetAudit('my_yoga_bad')" class="shrink-0 px-3 py-1.5 rounded-xl bg-rose-50 border border-rose-200 text-[10px] font-bold text-rose-800 active:scale-95 transition">🏋️‍♀️ 健身房瑜伽裤+船袜自拍</button>
+              <button onclick="loadPresetAudit('chicjoc_good')" class="shrink-0 px-3 py-1.5 rounded-xl bg-[#F8F5F2] border border-[#EAE2D6] text-[10px] font-bold text-[#2D241E] active:scale-95 transition">✅ CHICJOC 深咖+湖水青</button>
+              <button onclick="loadPresetAudit('chicjoc_bad')" class="shrink-0 px-3 py-1.5 rounded-xl bg-[#F8F5F2] border border-[#EAE2D6] text-[10px] font-bold text-rose-700 active:scale-95 transition">❌ CHICJOC 炭灰+冷玫红</button>
+              <button onclick="loadPresetAudit('icicle_set')" class="shrink-0 px-3 py-1.5 rounded-xl bg-[#F8F5F2] border border-[#EAE2D6] text-[10px] font-bold text-amber-800 active:scale-95 transition">⚠️ 之禾软针织全套试穿</button>
+              <button onclick="loadPresetAudit('linen_top')" class="shrink-0 px-3 py-1.5 rounded-xl bg-[#F8F5F2] border border-[#EAE2D6] text-[10px] font-bold text-emerald-800 active:scale-95 transition">🏆 FairyWang 奶白宽袖亚麻</button>
+            </div>
+          </div>
+
+          <!-- 补充说明输入框（供上传照片时微调诉求） -->
+          <div class="flex gap-2">
+            <input id="auditUserNote" type="text" placeholder="告诉我场景或困惑：如“总觉得胯宽、腿短，怎么救？”" class="flex-1 bg-[#F8F5F2] border border-[#EAE2D6] rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-[#8E443D]" />
+            <button onclick="runAIImageAudit()" id="auditStartBtn" class="px-4 py-2 bg-[#8E443D] text-white rounded-xl text-xs font-bold shrink-0 shadow-sm active:scale-95 transition flex items-center gap-1">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 犀利点评
+            </button>
+          </div>
+        </section>
+
+        <!-- 评估结果展示看板 -->
+        <section id="auditResultContainer" class="bg-white rounded-3xl p-5 border border-[#EAE2D6] shadow-sm space-y-4">
+          <!-- 默认展示或由 AI/预设填充 -->
+        </section>
+      </div>
+
+      <!-- =========================================================================
+           TAB 3: 一衣多穿视觉画报 · 带全身参考图 + 一键收藏
+      ========================================================================== -->
+      <div id="tab-versatile" class="tab-content space-y-4">
+        <section class="bg-white rounded-3xl p-5 border border-[#EAE2D6] shadow-sm space-y-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-[10px] font-bold text-[#8E443D] uppercase tracking-wider">Visual Lookbook & 1-Piece Matrix</span>
+              <h2 class="text-base font-bold text-[#2D241E] mt-0.5">一衣多穿视觉画报 · 喜欢的搭配一键收藏</h2>
+              <p class="text-[11px] text-gray-500 mt-0.5">直观展示每套 Look 的全身穿搭效果图、单品色块拼图与黄金比例分割线</p>
+            </div>
+            <button onclick="switchTabById('saved')" class="px-2.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-[10px] font-bold flex items-center gap-1 shrink-0 active:scale-95 transition">
+              <i data-lucide="heart" class="w-3.5 h-3.5 fill-rose-600 text-rose-600"></i> 收藏夹 (<span id="versatileSavedCount">0</span>)
+            </button>
+          </div>
+        </section>
+
+        <!-- 评估结果展示看板 -->
+        <section id="auditResultContainer" class="bg-white rounded-3xl p-5 border border-[#EAE2D6] shadow-sm space-y-4">
+          <!-- 默认展示或由 AI/预设填充 -->
+        </section>
+      </div>
+
+      <!-- =========================================================================
+           TAB 3: 一衣多穿实验室 · 上传单品图生成多风格全身搭配 (含 MaxMara 浴袍大衣)
+      ========================================================================== -->
+      <div id="tab-versatile" class="tab-content space-y-4">
+        <section class="bg-white rounded-3xl p-5 border border-[#EAE2D6] shadow-sm space-y-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-[10px] font-bold text-[#8E443D] uppercase tracking-wider">1-Piece Multi-Style Matrix</span>
+              <h2 class="text-base font-bold text-[#2D241E] mt-0.5">一衣多穿视觉画报 · 喜欢的搭配一键收藏</h2>
+              <p class="text-[11px] text-gray-500 mt-0.5">最大化衣橱实用率：围绕单品生成【时尚高智 / 年轻活力 / 静奢老钱 / 气场大女主】4套全身演示</p>
+            </div>
+            <button onclick="switchTabById('saved')" class="px-2.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-[10px] font-bold flex items-center gap-1 shrink-0 active:scale-95 transition">
+              <i data-lucide="heart" class="w-3.5 h-3.5 fill-rose-600 text-rose-600"></i> 收藏夹 (<span id="versatileSavedCount">3</span>)
+            </button>
+          </div>
+
+          <!-- 核心单品快速选择或上传自己的衣服图片 -->
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold text-gray-400 uppercase">选择衣橱核心单品 或 上传新衣服照片：</span>
+              <label for="garmentUploadInput" class="text-[10px] font-bold text-[#8E443D] cursor-pointer flex items-center gap-1 bg-[#8E443D]/10 px-2.5 py-1 rounded-full">
+                <i data-lucide="camera" class="w-3 h-3"></i> 上传单品图
+              </label>
+              <input type="file" id="garmentUploadInput" accept="image/*" class="hidden" onchange="handleGarmentUpload(event)" />
+            </div>
+
+            <!-- 预设高价值核心单品切换器 (默认选中 MaxMara 浴袍大衣) -->
+            <div class="grid grid-cols-2 gap-2" id="garmentPresetBtns">
+              <button onclick="selectCoreGarment('maxmara', this)" class="garment-btn active p-3 rounded-2xl border-2 border-[#8E443D] bg-[#8E443D]/5 text-left transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-[9px] font-bold bg-[#8E443D] text-white px-1.5 py-0.5 rounded">焦点示范</span>
+                  <div class="w-4 h-4 rounded-full border border-black/10" style="background-color: #9F7148;"></div>
+                </div>
+                <p class="text-xs font-bold text-[#2D241E] mt-1.5">Max Mara 浴袍大衣</p>
+                <p class="text-[10px] text-gray-500">经典焦糖驼 / 水波纹羊绒</p>
+              </button>
+
+              <button onclick="selectCoreGarment('arket_pants', this)" class="garment-btn p-3 rounded-2xl border border-[#EAE2D6] bg-white text-left transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-[9px] font-bold bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded">已购下装</span>
+                  <div class="w-4 h-4 rounded-full border border-black/10" style="background-color: #4B5332;"></div>
+                </div>
+                <p class="text-xs font-bold text-[#2D241E] mt-1.5">Arket 灯芯绒阔腿裤</p>
+                <p class="text-[10px] text-gray-500">深卡其绿 · 38码藏胯王牌</p>
+              </button>
+
+              <button onclick="selectCoreGarment('max_knit', this)" class="garment-btn p-3 rounded-2xl border border-[#EAE2D6] bg-white text-left transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-[9px] font-bold bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded">已选上装</span>
+                  <div class="w-4 h-4 rounded-full border border-black/10" style="background-color: #F5F2EB;"></div>
+                </div>
+                <p class="text-xs font-bold text-[#2D241E] mt-1.5">MaX 双胸袋羊毛衫</p>
+                <p class="text-[10px] text-gray-500">奶油白 / 暖烟粉 · S码</p>
+              </button>
+
+              <button onclick="selectCoreGarment('cestm_vest', this)" class="garment-btn p-3 rounded-2xl border border-[#EAE2D6] bg-white text-left transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-[9px] font-bold bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded">叠穿利器</span>
+                  <div class="w-4 h-4 rounded-full border border-black/10" style="background-color: #4A4A4A;"></div>
+                </div>
+                <p class="text-xs font-bold text-[#2D241E] mt-1.5">C'EST M 双面尼马甲</p>
+                <p class="text-[10px] text-gray-500">深炭灰 · 平直肩线</p>
+              </button>
+            </div>
+
+            <!-- 上传单品预览条 (上传后显示) -->
+            <div id="customGarmentBanner" class="hidden p-3 bg-[#F8F5F2] rounded-2xl border border-[#8E443D] items-center justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <img id="customGarmentThumb" src="" class="w-12 h-14 rounded-xl object-cover border border-[#EAE2D6]" />
+                <div>
+                  <span class="text-[9px] font-bold bg-[#8E443D] text-white px-1.5 py-0.5 rounded">您的上传单品</span>
+                  <input id="customGarmentNameInput" type="text" value="我上传的新款单品" class="block text-xs font-bold text-[#2D241E] bg-transparent border-b border-gray-300 focus:outline-none mt-1" />
+                </div>
+              </div>
+              <button onclick="generateCustomGarmentLooks()" id="genCustomBtn" class="px-3 py-2 bg-[#2D241E] text-white rounded-xl text-[10px] font-bold shrink-0">
+                AI 生成四风格
+              </button>
+            </div>
+          </div>
+
+          <!-- 4大风格切换标签 (时尚高智 / 年轻活力 / 老钱静奢 / 气场大女主) -->
+          <div class="flex bg-[#F8F5F2] p-1 rounded-2xl gap-1" id="versatileStyleTabs">
+            <button onclick="switchVersatileStyle(0, this)" class="v-style-btn active flex-1 py-2 rounded-xl text-[11px] font-bold bg-[#8E443D] text-white shadow-sm transition">时尚有气质</button>
+            <button onclick="switchVersatileStyle(1, this)" class="v-style-btn flex-1 py-2 rounded-xl text-[11px] font-bold text-gray-500 transition">年轻有活力</button>
+            <button onclick="switchVersatileStyle(2, this)" class="v-style-btn flex-1 py-2 rounded-xl text-[11px] font-bold text-gray-500 transition">静奢老钱风</button>
+            <button onclick="switchVersatileStyle(3, this)" class="v-style-btn flex-1 py-2 rounded-xl text-[11px] font-bold text-gray-500 transition">干练大女主</button>
+          </div>
+
+          <!-- 全身可视化搭配演示画布 -->
+          <div id="versatileLookCanvas" class="space-y-4">
+            <!-- JS 渲染全身视觉画报卡片 + 收藏按钮 + 从头到脚单品拆解 -->
+          </div>
+        </section>
+      </div>
+
+      <!-- =========================================================================
+           TAB 4: 灵感与收藏夹 · 收藏的搭配 + 上传博主美图帮我解析收藏
+      ========================================================================== -->
+      <div id="tab-saved" class="tab-content space-y-4">
+        <!-- 上传看到的博主好搭配模块 -->
+        <section class="bg-gradient-to-br from-[#2D241E] to-[#3B2E26] text-white rounded-3xl p-5 shadow-xl space-y-3.5 border border-[#8E443D]/40">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-[10px] font-bold text-[#D9AD98] uppercase tracking-wider flex items-center gap-1">
+                <i data-lucide="bookmark-plus" class="w-3.5 h-3.5"></i> Blogger Look Collector
+              </span>
+              <h2 class="serif-title text-base font-bold text-white mt-0.5">看到喜欢的博主搭配？发给我帮您收藏！</h2>
+              <p class="text-[11px] text-gray-300 mt-0.5">上传小红书/街拍博主美图，我会帮您拆解并转换成适合您【暖秋皮+梨形身材】的照穿版本存入画册</p>
+            </div>
+          </div>
+
+          <input type="file" id="bloggerFileInput" accept="image/*" class="hidden" onchange="handleBloggerUpload(event)" />
+
+          <div class="grid grid-cols-1 gap-2.5">
+            <div onclick="document.getElementById('bloggerFileInput').click()" class="border-2 border-dashed border-[#D9AD98]/50 bg-white/5 hover:bg-white/10 rounded-2xl p-4 text-center cursor-pointer transition flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3 text-left">
+                <div id="bloggerPreviewWrap" class="w-12 h-14 rounded-xl bg-white/10 flex items-center justify-center overflow-hidden shrink-0 border border-white/20">
+                  <i id="bloggerUploadIcon" data-lucide="image-plus" class="w-6 h-6 text-[#D9AD98]"></i>
+                  <img id="bloggerPreviewImg" src="" class="hidden w-full h-full object-cover" />
+                </div>
+                <div>
+                  <p class="text-xs font-bold text-white" id="bloggerUploadTitle">点击上传您喜欢的博主穿搭图</p>
+                  <p class="text-[10px] text-gray-300 mt-0.5">自动提取配色公式 + 标注梨形身材照穿要点</p>
+                </div>
+              </div>
+              <span class="px-2.5 py-1.5 rounded-xl bg-[#8E443D] text-white text-[10px] font-bold shrink-0">选择图片</span>
+            </div>
+
+            <div class="flex gap-2">
+              <input id="bloggerNoteInput" type="text" placeholder="备注喜欢哪里：如“喜欢这套松弛感，我有类似的裤子”" class="flex-1 bg-white/10 border border-white/20 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-400 focus:outline-none focus:border-[#D9AD98]" />
+              <button onclick="saveBloggerLookToCollection()" id="saveBloggerBtn" class="px-4 py-2 bg-[#D9AD98] text-[#2D241E] rounded-xl text-xs font-bold shrink-0 active:scale-95 transition flex items-center gap-1">
+                <i data-lucide="heart" class="w-3.5 h-3.5 fill-current"></i> 解析并收藏
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 收藏夹分类切换与列表 -->
+        <section class="bg-white rounded-3xl p-5 border border-[#EAE2D6] shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-bold text-[#8E443D] uppercase tracking-wider">My Curated Lookbook</span>
+              <h3 class="text-sm font-bold text-[#2D241E] mt-0.5">我的专属穿搭收藏夹 (<span id="totalSavedCountBadge">0</span>)</h3>
+            </div>
+            <div class="flex gap-1" id="savedFilterTabs">
+              <button onclick="filterSavedLooks('all', this)" class="s-filter-btn active px-2.5 py-1 rounded-lg text-[10px] font-bold bg-[#8E443D] text-white">全部</button>
+              <button onclick="filterSavedLooks('aura', this)" class="s-filter-btn px-2.5 py-1 rounded-lg text-[10px] font-bold bg-[#F8F5F2] text-gray-500">造型师方案</button>
+              <button onclick="filterSavedLooks('blogger', this)" class="s-filter-btn px-2.5 py-1 rounded-lg text-[10px] font-bold bg-[#F8F5F2] text-gray-500">博主灵感</button>
+              <button onclick="filterSavedLooks('mine', this)" class="s-filter-btn px-2.5 py-1 rounded-lg text-[10px] font-bold bg-[#F8F5F2] text-gray-500">我的优化</button>
+            </div>
+          </div>
+
+          <div id="savedLooksContainer" class="space-y-4">
+            <!-- 由 JS 渲染所有收藏的卡片 -->
+          </div>
+        </section>
+      </div>
+
+      <!-- =========================================================================
+           TAB 5: 定制风格 & 已审衣橱合并中心
+      ========================================================================== -->
+      <div id="tab-bespoke" class="tab-content space-y-4">
+        <section class="bg-white rounded-3xl p-5 border border-[#EAE2D6] shadow-sm space-y-4">
+          <div>
+            <span class="text-[10px] font-bold text-[#8E443D] uppercase tracking-wider">Bespoke Style Director</span>
+            <h2 class="text-base font-bold text-[#2D241E] mt-0.5">选择您想要的风格 · 主理人犀利定制</h2>
+            <p class="text-[11px] text-gray-500 mt-0.5">拒绝千篇一律：点选您心仪的风格方向，获取针对您【暖秋皮+76/93.5梨形+娃娃脸】的毒舌改造处方</p>
+          </div>
+
+          <!-- 6大高阶风格选择器 -->
+          <div class="grid grid-cols-2 gap-2.5" id="bespokeStyleGrid">
+            <!-- 由 JS 渲染 6 种风格按钮 -->
+          </div>
+        </section>
+
+        <!-- 主理人犀利定制方案详情 -->
+        <section id="bespokePrescriptionCard" class="bg-white rounded-3xl p-5 border border-[#EAE2D6] shadow-sm space-y-4">
+          <!-- 由 JS 渲染详细定制处方 -->
+        </section>
+
+        <!-- 已审实战衣橱红黑榜 -->
+        <div class="bg-white rounded-3xl p-4 border border-[#EAE2D6] flex items-center justify-between">
+          <div>
+            <span class="text-[10px] font-bold text-[#8E443D] uppercase tracking-wider">Verified Wardrobe Archive</span>
+            <h2 class="text-sm font-bold text-[#2D241E] mt-0.5">已共同严选的实战衣橱红黑榜</h2>
+          </div>
+          <div class="flex gap-1" id="wardrobeFilter">
+            <button onclick="filterWardrobe('all')" data-filter="all" class="filter-btn active px-2.5 py-1 rounded-lg text-[10px] font-bold bg-[#8E443D] text-white">全部</button>
+            <button onclick="filterWardrobe('top')" data-filter="top" class="filter-btn px-2.5 py-1 rounded-lg text-[10px] font-bold bg-[#F8F5F2] text-gray-500">上装</button>
+            <button onclick="filterWardrobe('bottom')" data-filter="bottom" class="filter-btn px-2.5 py-1 rounded-lg text-[10px] font-bold bg-[#F8F5F2] text-gray-500">下装</button>
+            <button onclick="filterWardrobe('acc')" data-filter="acc" class="filter-btn px-2.5 py-1 rounded-lg text-[10px] font-bold bg-[#F8F5F2] text-gray-500">配饰</button>
+          </div>
+        </div>
+
+        <div id="wardrobeList" class="space-y-3">
+          <!-- JS 动态渲染 -->
+        </div>
+      </div>
+
+    </main>
+
+    <!-- 底部 5 维导航栏 -->
+    <nav class="fixed bottom-0 w-full max-w-md z-30 glass-nav border-t border-[#EAE2D6] px-1.5 py-2 flex justify-around items-center">
+      <button id="nav-home" onclick="switchTab('home', this)" class="nav-btn flex flex-col items-center gap-1 py-1 px-2 text-[#8E443D] font-bold transition">
+        <i data-lucide="palette" class="w-5 h-5"></i>
+        <span class="text-[10px]">色卡与禁忌</span>
+      </button>
+      <button id="nav-audit" onclick="switchTab('audit', this)" class="nav-btn flex flex-col items-center gap-1 py-1 px-2 text-gray-400 font-medium transition">
+        <i data-lucide="camera" class="w-5 h-5"></i>
+        <span class="text-[10px]">拍我点评</span>
+      </button>
+      <button id="nav-versatile" onclick="switchTab('versatile', this)" class="nav-btn flex flex-col items-center gap-1 py-1 px-2 text-gray-400 font-medium transition">
+        <i data-lucide="sparkles" class="w-5 h-5"></i>
+        <span class="text-[10px]">一衣多穿</span>
+      </button>
+      <button id="nav-saved" onclick="switchTab('saved', this)" class="nav-btn relative flex flex-col items-center gap-1 py-1 px-2 text-gray-400 font-medium transition">
+        <i data-lucide="heart" class="w-5 h-5"></i>
+        <span class="text-[10px]">收藏与博主</span>
+        <span id="navSavedBadge" class="absolute -top-0.5 right-1 bg-rose-600 text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">3</span>
+      </button>
+      <button id="nav-bespoke" onclick="switchTab('bespoke', this)" class="nav-btn flex flex-col items-center gap-1 py-1 px-2 text-gray-400 font-medium transition">
+        <i data-lucide="compass" class="w-5 h-5"></i>
+        <span class="text-[10px]">风格与衣橱</span>
+      </button>
+    </nav>
+
+    <!-- 轻提示 Toast -->
+    <div id="auraToast" class="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-[#2D241E] text-white px-4 py-2.5 rounded-full shadow-xl border border-[#D9AD98]/40 text-xs font-bold hidden items-center gap-2 transition-all">
+      <i data-lucide="heart" class="w-4 h-4 text-rose-400 fill-rose-400"></i>
+      <span id="auraToastText">已加入您的穿搭收藏夹！</span>
+    </div>
+
+    <!-- =========================================================================
+         MODAL: Light Me 16型色彩测评完整官方报告弹窗
+    ========================================================================== -->
+    <div id="reportModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-3">
+      <div class="bg-[#FDFBF9] rounded-3xl max-w-md w-full max-h-[88vh] flex flex-col overflow-hidden shadow-2xl border border-[#EAE2D6]">
+        <!-- 弹窗头 -->
+        <div class="p-4 bg-[#2D241E] text-white flex justify-between items-center shrink-0">
+          <div class="flex items-center gap-2">
+            <i data-lucide="award" class="w-5 h-5 text-[#D9AD98]"></i>
+            <div>
+              <h3 class="serif-title font-bold text-sm">Light Me 16型色彩基因官方测评报告</h3>
+              <p class="text-[10px] text-gray-400">测评时间：2026年03月15日 14:30 · 档案编号 LM-2026-WA89</p>
+            </div>
+          </div>
+          <button onclick="closeModal('reportModal')" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <!-- 弹窗可滚动正文 -->
+        <div class="p-5 overflow-y-auto space-y-4 text-xs leading-relaxed no-scrollbar">
+          <!-- 季型定位 -->
+          <div class="p-4 bg-white rounded-2xl border border-[#EAE2D6] space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-[10px] font-bold text-[#8E443D] uppercase">第一性原理诊断结论</span>
+              <span class="text-[10px] font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full">Warm Autumn 暖秋型</span>
+            </div>
+            <h4 class="serif-title text-base font-bold text-[#2D241E]">主季型：暖秋型 (Warm Autumn) | 辅季型：深秋型 (Deep Autumn)</h4>
+            <p class="text-gray-600 text-[11px]">
+              您的皮相特征呈现典型的<strong>“暖底色 + 中低明度 + 中低饱和浓郁感”</strong>。原生深黑色头发（#020005）与深邃黑瞳为您提供了极佳的五官对比度框架，而暖黄/暖橘底色肌肤与红棕调唇色（#AE5B53），决定了您在<strong>黄金、古铜、大地棕、森林绿、陶土红</strong>的映衬下，皮肤会呈现出仿佛刚做完护理般的通透奶油光泽。
+            </p>
+          </div>
+
+          <!-- 四维色彩光谱进度条 -->
+          <div class="p-4 bg-white rounded-2xl border border-[#EAE2D6] space-y-3">
+            <h5 class="font-bold text-[#2D241E] text-xs">16型四维光谱实测数据</h5>
+            <div class="space-y-2 text-[11px]">
+              <div>
+                <div class="flex justify-between mb-1"><span>冷调 (Cool)</span><span class="font-bold text-[#8E443D]">色温：86% 极暖调 (Warm)</span></div>
+                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-blue-300 via-amber-500 to-[#8E443D]" style="width: 86%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1"><span>高明度 (Light)</span><span class="font-bold text-[#8E443D]">明度：68% 中低醇厚 (Deep)</span></div>
+                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-[#2D241E]" style="width: 68%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1"><span>高艳度 (Bright)</span><span class="font-bold text-[#8E443D]">彩度：74% 柔雾低饱和 (Muted)</span></div>
+                <div class="w-full h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-[#78826D]" style="width: 74%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 身材与面部量感联合档案 -->
+          <div class="p-4 bg-white rounded-2xl border border-[#EAE2D6] space-y-2">
+            <h5 class="font-bold text-[#2D241E] text-xs">身型骨相与尺码黄金准则 (166cm / 57.5kg)</h5>
+            <div class="grid grid-cols-3 gap-2 text-center py-1">
+              <div class="p-2 bg-[#F8F5F2] rounded-xl"><span class="text-[10px] text-gray-400 block">胸围 (80A/75B)</span><strong class="text-xs">76 cm</strong></div>
+              <div class="p-2 bg-[#F8F5F2] rounded-xl"><span class="text-[10px] text-gray-400 block">上腰围</span><strong class="text-xs text-[#8E443D]">72 cm</strong></div>
+              <div class="p-2 bg-[#F8F5F2] rounded-xl"><span class="text-[10px] text-gray-400 block">臀胯围</span><strong class="text-xs">93.5 cm</strong></div>
+            </div>
+            <ul class="text-[11px] text-gray-600 space-y-1 list-disc pl-4">
+              <li><strong>上衣锁死 S 码 (肩宽38/胸围92)</strong>：利用平直肩线、胸口双贴袋、微肌理羊绒与宽袖亚麻横向扩容。</li>
+              <li><strong>下装锁死欧码 38 码</strong>：给 93.5cm 臀围留出松弛余量，严禁贴肉针织裤，优选灯芯绒阔腿裤与挺括 A 字长裙。</li>
+              <li><strong>娃娃脸宽腮帮</strong>：选大斜波浪檐草帽 + 10-11mm 立体怪色爱迪生孔雀金耳钉，将视觉焦点锁在眼周上方。</li>
+            </ul>
+          </div>
+
+          <!-- 绝对禁用黑名单 -->
+          <div class="p-4 bg-rose-50 rounded-2xl border border-rose-100 space-y-1.5">
+            <h5 class="font-bold text-rose-800 text-xs flex items-center gap-1"><i data-lucide="ban" class="w-3.5 h-3.5"></i> 暖秋型终身避雷色（穿戴即显黑显黄）</h5>
+            <p class="text-[11px] text-rose-700">
+              冷光纯白、死板纯黑（近脸无金饰时）、冰蓝色、薄荷绿、电光火龙果粉、冷调玫红、贝壳灰蓝、冷调水泥灰、3号冷灰眉笔、银色底座冷白马贝珠。
+            </p>
+          </div>
+        </div>
+
+        <div class="p-4 bg-white border-t border-[#EAE2D6] shrink-0">
+          <button onclick="closeModal('reportModal')" class="w-full py-2.5 bg-[#8E443D] text-white rounded-full text-xs font-bold">
+            合上报告 · 返回高定空间
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. 60色高定服饰推荐色数据库 (分 6 大色系，每系 10 色 = 60 色)
+    // =========================================================================
+    const sixtyColorsData = [
+      // 系1: 高智暖调中性色 (10色)
+      { id: 1, cat: 'neutral', catName: '高智中性', name: '奶油珍珠白', hex: '#F5F2EB', use: '替代刺眼冷白，MaX/FairyWang开衫首选反光板色' },
+      { id: 2, cat: 'neutral', catName: '高智中性', name: '羊皮纸暖白', hex: '#EFECE6', use: '重磅真丝衬衫与亚麻上衣本命色，温润不生硬' },
+      { id: 3, cat: 'neutral', catName: '高智中性', name: '香槟燕麦米', hex: '#E5DACB', use: '坑条打底T与收腰开衫王牌色，温柔提气' },
+      { id: 4, cat: 'neutral', catName: '高智中性', name: '杏仁暖米色', hex: '#D8C6B2', use: '早秋风衣与西装外套基石色，松弛感拉满' },
+      { id: 5, cat: 'neutral', catName: '高智中性', name: '原色山羊绒', hex: '#C6B39E', use: '之禾风无染色高级羊绒色，尽显老钱底蕴' },
+      { id: 6, cat: 'neutral', catName: '高智中性', name: '暖调灰褐色', hex: '#9E8E82', use: '之禾针织两件套与KainoKen围巾本命色' },
+      { id: 7, cat: 'neutral', catName: '高智中性', name: '甜醋花褐色', hex: '#8B7D72', use: 'Icebreaker羊毛T中性色，衔接所有绿色下装' },
+      { id: 8, cat: 'neutral', catName: '高智中性', name: '橡子灰棕色', hex: '#73655B', use: 'C\'EST M 夹克经典色，比灰色更衬暖黄皮' },
+      { id: 9, cat: 'neutral', catName: '高智中性', name: '橄榄暖炭灰', hex: '#58534E', use: '替代冷水泥灰，A字半裙与西装裤高级收缩色' },
+      { id: 10, cat: 'neutral', catName: '高智中性', name: '浓郁黑咖啡', hex: '#352822', use: '替代死板纯黑，CHICJOC开衫与乐福鞋满分色' },
+
+      // 系2: 大地焦糖金棕色 (10色)
+      { id: 11, cat: 'brown', catName: '大地金棕', name: '经典驼绒色', hex: '#B68A5E', use: 'Max Mara 101801/Labbro浴袍大衣灵魂色' },
+      { id: 12, cat: 'brown', catName: '大地金棕', name: '焦糖玛奇朵', hex: '#A46B3E', use: '秋冬高领毛衣内搭，瞬间点亮暗色外套' },
+      { id: 13, cat: 'brown', catName: '大地金棕', name: '太妃糖暖棕', hex: '#8F5830', use: '麂皮夹克或腋下包最佳色调，复古摩登' },
+      { id: 14, cat: 'brown', catName: '大地金棕', name: '肉桂烘焙棕', hex: '#7D4B28', use: '精纺羊毛阔腿裤色，压住上半身浅色毛衣' },
+      { id: 15, cat: 'brown', catName: '大地金棕', name: '干邑白兰地', hex: '#9A5B32', use: '鳄鱼纹皮带与方头短靴点睛色，强调72cm腰线' },
+      { id: 16, cat: 'brown', catName: '大地金棕', name: '摩卡慕斯棕', hex: '#6F4E37', use: '2026年度流行高智棕，适合全套同色系穿搭' },
+      { id: 17, cat: 'brown', catName: '大地金棕', name: '烤栗子深棕', hex: '#5A3825', use: '极具权威感的商务大衣色，气场胜过纯黑' },
+      { id: 18, cat: 'brown', catName: '大地金棕', name: '檀木暗金棕', hex: '#4A2E1B', use: '重磅真丝半裙色，走动间自带古金光泽' },
+      { id: 19, cat: 'brown', catName: '大地金棕', name: '胡桃木暖褐', hex: '#634A3A', use: '知识分子风灯芯绒西装外套理想色彩' },
+      { id: 20, cat: 'brown', catName: '大地金棕', name: '松露巧克力', hex: '#3E2723', use: '秋冬打底裤与高筒靴收缩色，显腿直且长' },
+
+      // 系3: 陶土砖红与暖粉系 (10色)
+      { id: 21, cat: 'red', catName: '陶土砖红', name: '托斯卡纳陶土', hex: '#A65E4E', use: 'Rhode腮红与SHIRO 1I03甲油同频色，显白王炸' },
+      { id: 22, cat: 'red', catName: '陶土砖红', name: '温润红豆沙', hex: '#8E5F5F', use: 'Icebreaker 125羊毛T恤首选色，温柔知性' },
+      { id: 23, cat: 'red', catName: '陶土砖红', name: '干枯木玫瑰', hex: '#C59B9B', use: 'MaX羊毛衫图2色，唯一适合暖秋的显贵暖粉' },
+      { id: 24, cat: 'red', catName: '陶土砖红', name: '暖调蜜桃杏', hex: '#D9A796', use: '春夏真丝吊带背心色，打造伪素颜好气色' },
+      { id: 25, cat: 'red', catName: '陶土砖红', name: '枫叶铁锈红', hex: '#983E2B', use: '晚宴斜裁缎面连衣裙色，金南珠式大女主气场' },
+      { id: 26, cat: 'red', catName: '陶土砖红', name: '肉桂豆沙红', hex: '#9A5B53', use: '完美呼应您的原生唇色，针织开衫极佳选择' },
+      { id: 27, cat: 'red', catName: '陶土砖红', name: '勃艮第暖酒红', hex: '#6B2B33', use: '坑条T恤与丝绒半裙高光色，浓郁显贵' },
+      { id: 28, cat: 'red', catName: '陶土砖红', name: '红茶琥珀红', hex: '#7C3626', use: '秋冬羊绒围巾跳色，瞬间打破大地色沉闷' },
+      { id: 29, cat: 'red', catName: '陶土砖红', name: '暖珊瑚赤陶', hex: '#C46D5E', use: '度假风亚麻连衣裙色，拍照极度出片' },
+      { id: 30, cat: 'red', catName: '陶土砖红', name: '石榴暗棕红', hex: '#5E2321', use: '漆皮玛丽珍鞋或手提包点缀色，精致复古' },
+
+      // 系4: 森林卡其橄榄绿系 (10色)
+      { id: 31, cat: 'green', catName: '森林橄榄', name: '深卡其森林绿', hex: '#4B5332', use: 'Arket灯芯绒阔腿裤本命色，暖秋人的彩色黑' },
+      { id: 32, cat: 'green', catName: '森林橄榄', name: '鼠尾草暖灰绿', hex: '#78826D', use: '足部美甲9.9分神色 & 坑条T恤第4款智性色' },
+      { id: 33, cat: 'green', catName: '森林橄榄', name: '芥末草甸绿', hex: '#8B864E', use: 'Icebreaker Core户外速干T恤天选色，老钱户外风' },
+      { id: 34, cat: 'green', catName: '森林橄榄', name: '苔藓暗橄榄', hex: '#555D42', use: '猎装夹克或工装风衣色，帅气利落' },
+      { id: 35, cat: 'green', catName: '森林橄榄', name: '牛油果暖绿', hex: '#768948', use: '春夏季针织ポロ衫色，充满生机又不刺眼' },
+      { id: 36, cat: 'green', catName: '森林橄榄', name: '开心果仁绿', hex: '#A8B087', use: '清浅暖调绿，适合做内搭提亮深棕外套' },
+      { id: 37, cat: 'green', catName: '森林橄榄', name: '青铜孔雀绿', hex: '#3A4E48', use: '呼应怪色爱迪生珍珠伴色，极具神秘智性感' },
+      { id: 38, cat: 'green', catName: '森林橄榄', name: '墨玉深松绿', hex: '#283B35', use: '重磅羊毛大衣替代色，比黑色更显白皙' },
+      { id: 39, cat: 'green', catName: '森林橄榄', name: '枯叶迷彩绿', hex: '#63684C', use: '高腰直筒工装裙色，硬挺藏胯' },
+      { id: 40, cat: 'green', catName: '森林橄榄', name: '抹茶奶霜绿', hex: '#97A07A', use: '早春羊绒开衫色，搭配奶油白裤子绝美' },
+
+      // 系5: 芥末暖金与姜黄系 (10色)
+      { id: 41, cat: 'gold', catName: '芥末暖金', name: '古董芥末黄', hex: '#C89D3E', use: '内搭小高领或丝巾点缀色，瞬间點亮全身' },
+      { id: 42, cat: 'gold', catName: '芥末暖金', name: '流光香槟金', hex: '#DFC598', use: '缎面半裙或真丝衬衫色，自带贵妇光泽' },
+      { id: 43, cat: 'gold', catName: '芥末暖金', name: '暖调琥珀黄', hex: '#B88028', use: '秋日粗花呢外套混纺色，增加上身体量' },
+      { id: 44, cat: 'gold', catName: '芥末暖金', name: '姜汁暖黄色', hex: '#B07C3C', use: '周末休闲毛衣色，温暖亲和显年轻' },
+      { id: 45, cat: 'gold', catName: '芥末暖金', name: '蜂蜜黄油色', hex: '#E6CD8F', use: '春夏软糯针织短袖色，柔和面部线条' },
+      { id: 46, cat: 'gold', catName: '芥末暖金', name: '秋日麦穗金', hex: '#CDB176', use: '风衣风琴褶拼接色，灵动飘逸' },
+      { id: 47, cat: 'gold', catName: '芥末暖金', name: '藏红花暖金', hex: '#C6822A', use: '度假风印花长裙主色调，热情高级' },
+      { id: 48, cat: 'gold', catName: '芥末暖金', name: '落日余晖金', hex: '#BA6E32', use: '针织披肩色，搭在白衬衫外增加肩宽' },
+      { id: 49, cat: 'gold', catName: '芥末暖金', name: '古铜金棕黄', hex: '#8F6836', use: '复古金属扣皮带与胸针对应色' },
+      { id: 50, cat: 'gold', catName: '芥末暖金', name: '向日葵暗黄', hex: '#A87D24', use: '油画感配饰色，点亮深咖色衣橱' },
+
+      // 系6: 复古湖水青与暖梅紫系 (10色)
+      { id: 51, cat: 'teal', catName: '复古青梅', name: '湖水暖青绿', hex: '#38A3A5', use: 'CHICJOC图1内搭神色！与深咖啡碰撞出Prada智性感' },
+      { id: 52, cat: 'teal', catName: '复古青梅', name: '深孔雀蓝绿', hex: '#1F565E', use: '暖秋唯一能穿的蓝调，比藏青更显白提气' },
+      { id: 53, cat: 'teal', catName: '复古青梅', name: '暗夜暖藏青', hex: '#232F3E', use: '图3大波浪檐草编渔夫帽首选色，清爽减龄' },
+      { id: 54, cat: 'teal', catName: '复古青梅', name: '松石青金绿', hex: '#2D7274', use: '丝巾或耳饰点缀色，高级感撞色利器' },
+      { id: 55, cat: 'teal', catName: '复古青梅', name: '暖调桑葚紫', hex: '#6A3C4D', use: '带红棕底的深紫，晚装或足部美甲备选收缩色' },
+      { id: 56, cat: 'teal', catName: '复古青梅', name: '熟李子暗紫', hex: '#522B3B', use: '秋冬丝绒西装色，神秘且极具熟女韵味' },
+      { id: 57, cat: 'teal', catName: '复古青梅', name: '复古马尔斯绿', hex: '#1B4D4E', use: '重磅真丝衬衫色，搭配奶油白阔腿裤极惊艳' },
+      { id: 58, cat: 'teal', catName: '复古青梅', name: '灰调暖紫褐', hex: '#7A5C61', use: '莫兰迪暖紫褐，温柔不显脏的针织色' },
+      { id: 59, cat: 'teal', catName: '复古青梅', name: '无花果暖紫', hex: '#613F4C', use: '高腰真丝半裙色，搭配燕麦米毛衣优雅知性' },
+      { id: 60, cat: 'teal', catName: '复古青梅', name: '深海风暴青', hex: '#2B474B', use: '硬挺风衣外套色，自带电影女主角滤镜' }
+    ];
+
+    function render60Colors(filterCat = 'all') {
+      const container = document.getElementById('sixtyColorContainer');
+      const groups = [
+        { key: 'neutral', title: '一、高智暖调中性色系 (替代冷黑白灰 · 10色)' },
+        { key: 'brown', title: '二、大地焦糖金棕色系 (老钱风核心 · 10色)' },
+        { key: 'red', title: '三、陶土砖红与暖豆沙系 (气色提亮 · 10色)' },
+        { key: 'green', title: '四、森林卡其与橄榄绿系 (本命显白色 · 10色)' },
+        { key: 'gold', title: '五、芥末暖金与琥珀黄系 (高光点睛 · 10色)' },
+        { key: 'teal', title: '六、复古湖水青与暖梅紫系 (高阶撞色 · 10色)' }
+      ];
+
+      const targetGroups = filterCat === 'all' ? groups : groups.filter(g => g.key === filterCat);
+
+      container.innerHTML = targetGroups.map(g => {
+        const items = sixtyColorsData.filter(c => c.cat === g.key);
+        return `
+          <div class="space-y-2">
+            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">${g.title}</p>
+            <div class="swatch-grid">
+              ${items.map(item => `
+                <button onclick="selectSingle60Swatch(${item.id})" class="group flex flex-col items-center gap-1 focus:outline-none">
+                  <div class="w-full aspect-square rounded-xl shadow-inner border border-black/10 transition transform group-active:scale-90 group-hover:ring-2 group-hover:ring-[#8E443D]" style="background-color: ${item.hex};"></div>
+                  <span class="text-[9px] text-gray-600 truncate w-full text-center font-medium">${item.name.slice(0, 4)}</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filter60Colors(cat, btnEl) {
+      document.querySelectorAll('#colorCategoryTabs .cat-tab').forEach(b => {
+        b.className = "cat-tab shrink-0 px-3 py-1.5 rounded-full text-[11px] font-bold bg-[#F8F5F2] text-gray-600 transition";
+      });
+      btnEl.className = "cat-tab active shrink-0 px-3 py-1.5 rounded-full text-[11px] font-bold bg-[#8E443D] text-white transition";
+      render60Colors(cat);
+    }
+
+    function selectSingle60Swatch(id) {
+      const item = sixtyColorsData.find(c => c.id === id);
+      if (!item) return;
+      document.getElementById('activeSwatchBox').style.backgroundColor = item.hex;
+      document.getElementById('activeSwatchName').textContent = `#${String(item.id).padStart(2, '0')} ${item.name}`;
+      document.getElementById('activeSwatchGroup').textContent = item.catName;
+      document.getElementById('activeSwatchUse').textContent = item.use;
+      document.getElementById('activeSwatchHex').textContent = item.hex;
+    }
+
+    // =========================================================================
+    // 1.5 新增：10大高定混色肌理与经典图腾数据库 (千鸟格/波点/豹纹/斑马纹/费尔岛/沾染等)
+    // =========================================================================
+    const patternMixData = [
+      {
+        id: 'houndstooth',
+        name: '千鸟格',
+        fullName: '暖秋千鸟格 (Warm Houndstooth)',
+        cssClass: 'pat-houndstooth',
+        bestCombo: '浓咖啡褐 (#4E3629) + 燕麦驼 (#C6B39E) + 奶油白 (#F5F2EB)',
+        avoidCombo: '❌ 严禁：高对比冷纯黑 + 刺眼漂白千鸟格（显脸色惨黄且刻板老气）',
+        colorsHex: ['#4E3629', '#C6B39E', '#F5F2EB'],
+        placement: '上装西装外套 / 挺括短款马甲 / 秋冬围巾',
+        stylistTip: '中小型暖棕千鸟格自带密集视觉张力，穿在上半身能为 76cm 窄胸横向扩容 15%；千万别穿千鸟格包臀裤（会无限放大 93.5cm 宽胯）！'
+      },
+      {
+        id: 'polkadot',
+        name: '复古波点',
+        fullName: '法式暖调波点 (Espresso Polka Dot)',
+        cssClass: 'pat-polkadot',
+        bestCombo: '苦浓咖啡底 (#352822) + 奶油杏白圆点 (#F5F2EB) 或 陶土红底+米白点',
+        avoidCombo: '❌ 严禁：纯黑底+冷白超大波点 或 藏蓝底+冷白点',
+        colorsHex: ['#352822', '#F5F2EB', '#A65E4E'],
+        placement: '重磅真丝飘带衬衫 / 斜裁A字迷笛半身裙',
+        stylistTip: '波点直径控制在 0.5cm~1.2cm 最显高级（波点太大显膨胀俗气，太密像麻子）。选深咖底奶油波点真丝衬衫，配高腰卡其绿阔腿裤，知性又减龄！'
+      },
+      {
+        id: 'leopard',
+        name: '野性豹纹',
+        fullName: '暖秋本命金棕豹纹 (Amber Leopard)',
+        cssClass: 'pat-leopard',
+        bestCombo: '暖琥珀金底 (#C89D54) + 焦糖棕斑心 (#8F5830) + 黑巧勾边 (#352822)',
+        avoidCombo: '❌ 严禁：冷灰白底雪豹纹（冷冬型专属，暖秋穿立刻显脏显廉价）',
+        colorsHex: ['#C89D54', '#8F5830', '#352822'],
+        placement: '小面积点睛：马毛乐福鞋 / 细腰带 / 丝巾 / 腋下包',
+        stylistTip: '豹纹其实是暖秋型人的天选图腾！因为它的焦糖金棕底色与您的暖橘底肤色完全同源。41岁走高智感路线，切忌全身大面积豹纹大衣，用一双豹纹方头鞋或腰带点亮全身纯色即可！'
+      },
+      {
+        id: 'zebra',
+        name: '斑马纹',
+        fullName: '柔雾摩卡斑马纹 (Mocha Cream Zebra)',
+        cssClass: 'pat-zebra',
+        bestCombo: '松露深棕条纹 (#3E2723) + 羊皮纸暖米白底 (#EFECE6)',
+        avoidCombo: '❌ 严禁：死黑+荧光白锐利斑马纹（边缘太生硬，容易切割身材）',
+        colorsHex: ['#3E2723', '#EFECE6', '#8B7D72'],
+        placement: '纵向或斜向纹理的真丝衬衫 / 针织披肩 / 帆布拼接托特包',
+        stylistTip: '用深棕与燕麦米替代黑白后，斑马纹瞬间变成 Lemaire 式的艺术条纹。选择略带斜向流动感的斑马纹上衣，能打破娃娃脸的圆钝感，极其摩登。'
+      },
+      {
+        id: 'fairisle',
+        name: '费尔岛提花',
+        fullName: '北欧老钱费尔岛 (Warm Fair Isle)',
+        cssClass: 'pat-fairisle',
+        bestCombo: '森林绿 (#4B5332) + 陶土砖红 (#A65E4E) + 芥末暖金 (#C89D3E) + 奶油白',
+        avoidCombo: '❌ 严禁：冰蓝+冷粉+雪白费尔岛毛衣',
+        colorsHex: ['#4B5332', '#A65E4E', '#C89D3E', '#F5F2EB'],
+        placement: '肩胸环形提花 (Yoke) 羊绒毛衣 / 复古针织背心',
+        stylistTip: '费尔岛毛衣是您 76cm 窄胸的“作弊神器”！挑选图案集中在【领口、肩膀与胸口上方】的款式，瞬间横向拉宽肩胸比，把视觉焦点牢牢锁在上半身，平衡 93.5cm 宽胯！'
+      },
+      {
+        id: 'tiedye',
+        name: '晕染/扎染',
+        fullName: '水彩落日沾染 (Sunset Ombré / Tie-Dye)',
+        cssClass: 'pat-tiedye',
+        bestCombo: '陶土肉桂 (#A65E4E) + 鼠尾草灰绿 (#78826D) + 琥珀金 (#C89D54) 柔和渐变',
+        avoidCombo: '❌ 严禁：电光蓝紫扎染 或 高对比街头嬉皮扎染',
+        colorsHex: ['#A65E4E', '#78826D', '#C89D54', '#F5F2EB'],
+        placement: '薄透羊绒真丝围巾 / 度假亚麻长衫 / 艺术感半裙(上浅下深)',
+        stylistTip: '适合您的沾染必须是“低饱和油画水彩晕染”。若穿渐变色单品，请遵守【上浅下深】原则（胸口为奶油杏色/琥珀色，向下过渡为深卡其绿或深咖），视觉显瘦十斤！'
+      },
+      {
+        id: 'tweed',
+        name: '粗花呢混纺',
+        fullName: '高定金丝粗花呢 (Gilded Autumn Tweed)',
+        cssClass: 'pat-tweed',
+        bestCombo: '胡桃木棕 (#634A3A) + 奶油白粗纱 + 哑光金丝 (#D4AF37) + 铁锈红微粒',
+        avoidCombo: '❌ 严禁：冷黑白混银丝粗花呢（银丝会反衬黄气）',
+        colorsHex: ['#634A3A', '#F5F2EB', '#D4AF37', '#983E2B'],
+        placement: '正肩短款无领小香风外套 (衣长 52-56cm，卡在 72cm 细腰处)',
+        stylistTip: '粗花呢凹凸不平的丰厚肌理，天生就是为 76cm 窄胸量身打造的！选夹杂 18K 哑光金线的暖棕/奶油色粗花呢短外套，下配高腰阔腿裤，瞬间穿出富家千金与主理人双料气场。'
+      },
+      {
+        id: 'glenplaid',
+        name: '威尔士格纹',
+        fullName: '知识分子格伦格纹 (Warm Glen Plaid)',
+        cssClass: 'pat-glenplaid',
+        bestCombo: '杏仁暖米底 (#D8C6B2) + 深咖细格 (#3E2723) + 枫叶铁锈红暗线 (#983E2B)',
+        avoidCombo: '❌ 严禁：冷水泥灰+纯黑格纹（死气沉沉像老干部）',
+        colorsHex: ['#D8C6B2', '#3E2723', '#983E2B'],
+        placement: '带薄垫肩的廓形西装外套 (Blazer)',
+        stylistTip: '格纹里隐藏的一丝“铁锈红或琥珀黄细线”是灵魂！它能与您的红棕唇色、Rhode泰迪棕腮红形成绝妙呼应，搭配白T和绿裤子，知识分子风拿捏得死死的。'
+      },
+      {
+        id: 'tortoise',
+        name: '琥珀玳瑁纹',
+        fullName: '流光蜂蜜玳瑁纹 (Honey Tortoiseshell)',
+        cssClass: 'pat-tortoise',
+        bestCombo: '蜂蜜琥珀金 (#D48B28) + 焦糖褐 (#8F4716) + 浓黑巧斑块 (#3B2010)',
+        avoidCombo: '❌ 严禁：纯黑死板塑料框 或 透明冷白框',
+        colorsHex: ['#D48B28', '#8F4716', '#3B2010'],
+        placement: '修饰宽腮帮的大框猫眼/方圆太阳镜 / 盘发抓夹 / 大衣牛角扣',
+        stylistTip: '玳瑁纹是您面部周边的“显白聚光灯”！通透的琥珀金斑块能把光线折射到颧骨上，大镜框既能截断娃娃脸宽腮帮，又比纯黑镜框洋气十倍。'
+      },
+      {
+        id: 'herringbone',
+        name: '人字纹肌理',
+        fullName: '纵向拉伸人字纹 (Warm Taupe Herringbone)',
+        cssClass: 'pat-herringbone',
+        bestCombo: '暖灰褐 (#9E8E82) + 橡子棕 (#73655B) + 燕麦米 (#E5DACB) 双股交织',
+        avoidCombo: '❌ 严禁：横向宽条纹裤装',
+        colorsHex: ['#9E8E82', '#73655B', '#E5DACB'],
+        placement: '长款H型大衣 / 高腰垂坠精纺羊毛阔腿裤',
+        stylistTip: '人字纹自带微小的纵向 V 字箭头肌理，是唯一可以安全穿在下半身（93.5cm 臀胯区）的纹理，能在视觉上把双腿拉得又直又长！'
+      }
+    ];
+
+    function renderPatternMatrix(selectedId = 'houndstooth') {
+      const grid = document.getElementById('patternSwatchGrid');
+      if (!grid) return;
+
+      grid.innerHTML = patternMixData.map(item => {
+        const active = item.id === selectedId;
+        return `
+          <button onclick="renderPatternMatrix('${item.id}')" class="flex flex-col items-center gap-1 group focus:outline-none">
+            <div class="w-full aspect-square rounded-2xl shadow-inner border-2 transition transform group-active:scale-95 ${
+              active ? 'border-[#8E443D] ring-2 ring-[#8E443D]/30 scale-105' : 'border-black/10'
+            } ${item.cssClass}"></div>
+            <span class="text-[10px] ${active ? 'font-bold text-[#8E443D]' : 'font-medium text-gray-600'} truncate w-full text-center">${item.name}</span>
+          </button>
+        `;
+      }).join('');
+
+      const curr = patternMixData.find(p => p.id === selectedId) || patternMixData[0];
+      const card = document.getElementById('activePatternCard');
+      card.innerHTML = `
+        <div class="flex items-center justify-between border-b border-[#EAE2D6] pb-2.5">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <div class="w-11 h-11 rounded-xl shadow-md border border-black/15 shrink-0 ${curr.cssClass}"></div>
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5">
+                <h4 class="text-xs font-bold text-[#2D241E] truncate">${curr.fullName}</h4>
+              </div>
+              <p class="text-[10px] text-[#8E443D] font-bold mt-0.5 truncate">最佳位置：${curr.placement}</p>
+            </div>
+          </div>
+          <div class="flex -space-x-1.5 shrink-0">
+            ${curr.colorsHex.map(h => `<div class="w-5 h-5 rounded-full border border-white shadow-sm" style="background-color: ${h};"></div>`).join('')}
+          </div>
+        </div>
+
+        <div class="space-y-1.5 text-[11px]">
+          <p class="text-emerald-900 bg-emerald-50/90 px-2.5 py-1.5 rounded-xl font-medium">
+            <strong>✅ 暖秋本命混色公式：</strong>${curr.bestCombo}
+          </p>
+          <p class="text-rose-800 bg-rose-50/80 px-2.5 py-1 rounded-xl">
+            ${curr.avoidCombo}
+          </p>
+          <p class="text-gray-600 leading-relaxed pt-1">
+            <strong class="text-[#2D241E]">📐 窄胸宽胯显瘦法则：</strong>${curr.stylistTip}
+          </p>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 1.8 新增：18大禁忌色 & 6大禁忌搭配数据库
+    // =========================================================================
+    const tabooColorsData = [
+      { id: 1, name: '电光火龙果', hex: '#D31E76', reason: '图2美甲踩雷色！高饱和冷调荧光粉与暖黄底色剧烈冲突，瞬间把皮肤衬得又黑又糙。' },
+      { id: 2, name: '贝壳雾霾蓝', hex: '#6B7E8C', reason: '您亲测显黑的脚甲色！冷灰蓝会抽取皮肤中的暖光，让暖黄皮呈现出“灰扑扑”的脏感。' },
+      { id: 3, name: '艳丽冷玫红', hex: '#A61C5D', reason: 'CHICJOC图2内搭色！典型冷冬型色彩，贴近脸部会让眼周暗沉、面色发黄。' },
+      { id: 4, name: '荧光芭比粉', hex: '#FF66B2', reason: 'Rhode腮红Piggy同类色，在暖秋脸上会产生严重的“粉底浮粉发灰”假面感。' },
+      { id: 5, name: '冷调婴儿粉', hex: '#F4C2C2', reason: 'Icebreaker霞粉/凤仙粉同类色，明度过高且偏冷，穿在身上显得气色虚弱惨淡。' },
+      { id: 6, name: '冰川极光蓝', hex: '#D6ECEF', reason: 'FairyWang开衫踩雷冰蓝色！毫无暖意，会让您原本温润的皮肤显得冷硬憔悴。' },
+      { id: 7, name: '冷调薄荷绿', hex: '#BCEAD5', reason: 'KainoKen围巾踩雷色！冷青底调会无限放大面部的黄气。' },
+      { id: 8, name: '刺眼漂白纯白', hex: '#FFFFFF', reason: '冷光纯白对比度过强，不如奶油白/燕麦米温润，容易暴露面部法令纹与疲态。' },
+      { id: 9, name: '死板纯炭黑', hex: '#0A0A0A', reason: '大面积贴脸穿且无金饰过渡时，会压制您的暖橘肤色，显得沉闷老气像制服。' },
+      { id: 10, name: '水泥冷中灰', hex: '#8E9299', reason: 'BobbiBrown 3号雅灰眉笔同类色，会让整个人看起来像阴天一样毫无血色。' },
+      { id: 11, name: '薰衣草冷紫', hex: '#B2A4D4', reason: '带蓝底的浅冷紫是黄皮克星，穿戴后肤色立刻暗沉两个度。' },
+      { id: 12, name: '电光皇家蓝', hex: '#0047AB', reason: '过于锐利刺眼的冷宝蓝，完全破坏您追求的The Row式静奢松弛感。' },
+      { id: 13, name: '荧光柠檬黄', hex: '#E8FF00', reason: '带冷绿荧光的黄色，与暖秋所需的“芥末暖金/琥珀黄”背道而驰，极显廉价。' },
+      { id: 14, name: '银白亮片色', hex: '#D8DEE9', reason: '冷银色首饰/银白马贝珠托底，在您耳畔显得突兀生硬，远不及18K哑光金显贵。' },
+      { id: 15, name: '冷调青灰绿', hex: '#7A9A95', reason: '缺少黄调中和的冷山岚绿，无法衬托您深黑瞳孔的温润感。' },
+      { id: 16, name: '惨白浅冰灰', hex: '#E2E6EA', reason: 'Icebreaker苍穹灰同类色，穿在76cm窄胸上既无气色又显单薄。' },
+      { id: 17, name: '高亮荧光橙', hex: '#FF5500', reason: '虽然是暖色但饱和度过高，涂在偏黑脚背上会形成强烈的廉价反差。' },
+      { id: 18, name: '冷调紫罗兰', hex: '#6C3082', reason: '蓝紫底调与暖橘肤色完全排斥，显老10岁。' }
+    ];
+
+    const tabooCombosData = [
+      {
+        title: '禁忌搭配 1：软塌贴身针织裤 / 包臀裙 + 短款紧身上衣',
+        whyFatal: '76cm窄胸显得干瘪，而93.5cm宽胯与大腿根被无骨针织面料死死勾勒，瞬间暴露正三角梨形痛点！',
+        rescue: '✅ 正确替代：之禾软针织只穿上衣，下半身必须换【Arket 38码深卡其绿灯芯绒阔腿裤】或挺括A字长裙（上软下硬）。'
+      },
+      {
+        title: '禁忌搭配 2：瑜伽裤 + 隐形船袜/露脚踝 + 薄底窄跑鞋',
+        whyFatal: '小腿和脚踝被勒得像针尖一样细，对比之下髋部和大腿根显得无比庞大，头重脚轻！',
+        rescue: '✅ 正确替代：【奶油白中筒堆堆袜（小腿下段拉褶增量） + 3.5cm厚底米色老爹鞋】，给脚部建地基平衡宽胯。'
+      },
+      {
+        title: '禁忌搭配 3：无帽檐/极窄檐钟形帽（图4款） + 全塞头发',
+        whyFatal: '紧贴头顶的窄帽冠会把所有视觉重心压向下半张脸，让您的娃娃脸与微宽腮帮显得大一圈！',
+        rescue: '✅ 正确替代：【藏青色中大斜波浪檐草帽（图3款，帽檐宽过腮帮）】 + 两侧留微卷发丝 + 大框玳瑁墨镜。'
+      },
+      {
+        title: '禁忌搭配 4：12-13mm扁平冷白马贝耳钉 / 卡在腮帮长度的耳环',
+        whyFatal: '扁平大马贝横向拉宽中下庭；而刚好垂到下颌角最宽处的耳环等于给宽腮帮画重点！',
+        rescue: '✅ 正确替代：【10-11mm立体圆珠怪色爱迪生孔雀金】或【耳下1.5cm微垂排钻珍珠耳坠】，把高光锁在眼周上方。'
+      },
+      {
+        title: '禁忌搭配 5：大廓形溜肩连帽卫衣 / 垮肩Oversize毛衣',
+        whyFatal: '76cm窄胸撑不起垮肩线，衣服下摆正好卡在93.5cm臀围最宽处，整个人显得邋遢矮胖、毫无41岁高智感。',
+        rescue: '✅ 正确替代：锁死【S码正肩(38cm肩宽) + 双胸袋/平直肩线马甲】设计，腰线严格固定在 72cm 最细处。'
+      },
+      {
+        title: '禁忌搭配 6：全身冷炭灰/纯黑连体 + 冷艳玫红内搭（CHICJOC图2）',
+        whyFatal: '通体冷暗色不仅把暖黄肤色衬得蜡黄憔悴，还让视觉重心沉到脚底。',
+        rescue: '✅ 正确替代：遵循【上暖深咖+湖水青提亮 / 下奶油白阔腿裤减负】法则，永远在锁骨区保留暖金光泽。'
+      }
+    ];
+
+    function renderTabooSection(selectedId = 1) {
+      const grid = document.getElementById('tabooColorGrid');
+      if (grid) {
+        grid.innerHTML = tabooColorsData.map(c => {
+          const active = c.id === selectedId;
+          return `
+            <button onclick="renderTabooSection(${c.id})" class="flex flex-col items-center gap-1 focus:outline-none group">
+              <div class="w-full aspect-square rounded-xl shadow-inner border-2 relative flex items-center justify-center transition ${
+                active ? 'border-rose-600 scale-105 ring-2 ring-rose-300' : 'border-black/10 opacity-90'
+              }" style="background-color: ${c.hex};">
+                <span class="text-[10px] font-black text-white/90 drop-shadow">✕</span>
+              </div>
+              <span class="text-[9px] text-gray-600 truncate w-full text-center line-through decoration-rose-500">${c.name.slice(0,4)}</span>
+            </button>
+          `;
+        }).join('');
+      }
+
+      const curr = tabooColorsData.find(x => x.id === selectedId) || tabooColorsData[0];
+      const sw = document.getElementById('activeTabooSwatch');
+      if (sw) {
+        sw.style.backgroundColor = curr.hex;
+        document.getElementById('activeTabooName').textContent = `#禁忌${String(curr.id).padStart(2,'0')} ${curr.name}`;
+        document.getElementById('activeTabooReason').textContent = curr.reason;
+      }
+
+      const comboBox = document.getElementById('tabooComboList');
+      if (comboBox) {
+        comboBox.innerHTML = tabooCombosData.map(cb => `
+          <div class="p-3.5 bg-white rounded-2xl border border-rose-100 shadow-sm space-y-1.5 text-xs">
+            <p class="font-bold text-rose-900 flex items-center gap-1.5">
+              <span class="bg-rose-600 text-white text-[9px] px-1.5 py-0.5 rounded font-black shrink-0">严禁</span>
+              ${cb.title}
+            </p>
+            <p class="text-[11px] text-gray-600 leading-relaxed"><strong>💀 翻车真相：</strong>${cb.whyFatal}</p>
+            <p class="text-[11px] text-emerald-900 bg-emerald-50/80 px-2.5 py-1.5 rounded-xl font-medium">${cb.rescue}</p>
+          </div>
+        `).join('');
+      }
+    }
+
+    // =========================================================================
+    // 2. TAB 2: 拍我的穿搭 · 犀利点评与 3 步急救优化建议
+    // =========================================================================
+    let uploadedAuditBase64 = null;
+    let currentAuditData = null;
+
+    const presetAudits = {
+      my_yoga_bad: {
+        title: "我的健身房实拍：紧身瑜伽裤 + 浅口船袜 + 薄底运动鞋",
+        totalScore: 52,
+        verdictTag: "⚠️ 典型‘上大下小’倒三角痛点 · 急需鞋袜配重优化",
+        verdictColor: "amber",
+        colorScore: 80,
+        colorComment: "运动装基础色尚可，但上半身缺乏暖秋亮色提气，容易显得运动时气色暗淡。",
+        bodyScore: 40,
+        bodyComment: "毒舌实话：瑜伽裤把您 93.5cm 的髋部和大腿根包裹得一览无余，而底下穿船袜露脚踝配薄底鞋，小腿和脚部量感几乎为零！上下形成强烈的‘上粗下细’悬空感。",
+        vibeScore: 65,
+        vibeComment: "普通健身房路人感，缺乏属于您的高智运动松弛风（Athflow）。",
+        step1Fix: "【第1步·鞋袜增量】立刻脱掉船袜！换上【奶油白/燕麦色中筒棉袜】拉到小腿肚下方自然堆叠，填平细脚踝；脚穿鞋底宽于脚踝的【3.5cm厚底米色老爹鞋/NB 1906R】。",
+        step2Fix: "【第2步·上衣遮胯】上半身穿您买的【Icebreaker 芥末绿或豆沙色羊毛T恤（S码）】，下摆自然垂下遮住髋部上方1/3。",
+        step3Fix: "【第3步·重心上移】戴一对小巧的18K哑光金耳钉或浅咖棒球帽，把视线拉回上半身，全身比例瞬间均衡修长！"
+      },
+      chicjoc_good: {
+        title: "CHICJOC 深咖啡褐四袋开衫 + 湖水青绿内搭 + 奶白阔腿裤",
+        totalScore: 98,
+        verdictTag: "🏆 教科书级高智感 · 强烈推荐照穿",
+        verdictColor: "emerald",
+        colorScore: 99,
+        colorComment: "深咖啡褐完美替代死板纯黑，内搭带暖绿调的湖水青，在胸前形成高级的 Prada 式复古知识分子撞色，瞬间提亮暖橘底肤色。",
+        bodyScore: 98,
+        bodyComment: "正面4个工装掀盖口袋精准为 76cm 窄胸扩容；下端扣子解开形成倒 V 切割，配合高腰奶白阔腿裤，93.5cm 宽胯彻底隐形。",
+        vibeScore: 97,
+        vibeComment: "既有 41 岁职场主理人的干练气场，又因湖水青的加入显得年轻灵动、绝不沉闷。",
+        step1Fix: "【第1步·扣子心机】开衫最上面1颗和最下面2颗扣子必须解开，制造双向V字延长线。",
+        step2Fix: "【第2步·耳畔高光】戴上您的【10-11mm 怪色爱迪生孔雀金耳钉】，伴色中的孔雀绿与湖水青内搭形成神级呼应。",
+        step3Fix: "【第3步·鞋履托底】脚穿深咖啡色方头乐福鞋，与开衫首尾顺色呼应。"
+      },
+      chicjoc_bad: {
+        title: "CHICJOC 炭黑杂灰开衫 + 冷艳玫红内搭 + 深灰半身裙",
+        totalScore: 35,
+        verdictTag: "❌ 严重色彩与重心踩雷 · 立即换掉",
+        verdictColor: "rose",
+        colorScore: 25,
+        colorComment: "致命冷色调组合！炭黑杂灰+冷光艳玫红是典型‘冷冬型’配色，会强行抽取您面部的暖意，显得肤色蜡黄、眼周暗沉疲惫。",
+        bodyScore: 45,
+        bodyComment: "上半身深灰+下半身深灰包臀直筒裙，通体暗沉导致视觉重心严重下坠，不仅压低 166cm 个子，还会勾勒出 93.5cm 的臀胯曲线。",
+        vibeScore: 35,
+        vibeComment: "显得严肃、紧绷且老气，完全背离了您想要的松弛老钱感。",
+        step1Fix: "【第1步·换掉冷内搭】把冷艳玫红内搭立刻换成【奶油白/燕麦米或湖水青绿】针织衫。",
+        step2Fix: "【第2步·下半身减负】脱掉沉闷的深灰包臀裙，换上【奶白色高腰垂坠阔腿裤】打破通体乌黑。",
+        step3Fix: "【第3步·暖妆救场】若必须穿深灰外套，脸部必须用 Rhode #Toasted Teddy 泰迪棕腮红 + 红棕口红强行注入暖色温。"
+      },
+      icicle_set: {
+        title: "之禾 ICICLE 暖灰褐真丝羊绒软针织两件套",
+        totalScore: 86,
+        verdictTag: "⚠️ 色美型险 · 只穿上衣、改造下装",
+        verdictColor: "amber",
+        colorScore: 100,
+        colorComment: "满分暖灰褐色（Warm Taupe）！自带顶级真丝羊绒的温润微光，贴近脸部极显贵气。",
+        bodyScore: 70,
+        bodyComment: "面料极度垂软无骨。若按原图松垮散开且配同材质软针织裤，会让 76cm 窄胸显瘪、93.5cm 宽胯显胖，穿出豪华睡衣感。",
+        vibeScore: 90,
+        vibeComment: "汤唯式的极致温柔书卷气，但需靠硬朗下装撑起职场威严。",
+        step1Fix: "【第1步·塞衣角锁腰】将内搭针织衫前摆塞进高腰裤，死死卡住 72cm 最细上腰线，外层开衫敞开穿。",
+        step2Fix: "【第2步·上软下硬】放弃同套软针织裤，下装换成筋骨感极强的【Arket 深卡其绿灯芯绒阔腿裤】。",
+        step3Fix: "【第3步·丰胸点缀】在 40cm 锁骨位戴上【大颗粒巴洛克香槟金珍珠项链】，瞬间填补前胸量感。"
+      },
+      linen_top: {
+        title: "Fairy Wang 奶白色宽袖收腰建筑感亚麻上衣 + 阔腿裤",
+        totalScore: 97,
+        verdictTag: "🏆 梨形比例重塑神衣 · 满分示范",
+        verdictColor: "emerald",
+        colorScore: 96,
+        colorComment: "天然亚麻的奶白色带有暖米肌理，比冷白更衬肤色。",
+        bodyScore: 99,
+        bodyComment: "夸张的雕塑感宽袖横向拉宽肩胸体量，腰部收褶死死锁住 72cm 细腰，伞状挺括下摆像建筑一样把 93.5cm 臀胯完全藏住！",
+        vibeScore: 96,
+        vibeComment: "Phoebe Philo 式的先锋高智美学，41岁穿它既有艺术主理人腔调又极显瘦。",
+        step1Fix: "【第1步·发型配合】穿这种宽肩建筑感上衣时，建议将头发半扎或塞耳后，露出脖颈线条避免拖沓。",
+        step2Fix: "【第2步·手腕延伸】因为是五分宽袖，手腕处叠戴一只18K哑光金手镯，精致度翻倍。",
+        step3Fix: "【第3步·足部呼应】穿露趾穆勒凉鞋，脚涂【SHIRO #1I03 陶土肉桂甲油】温润收尾。"
+      }
+    };
+
+    function renderAuditResult(data) {
+      currentAuditData = data;
+      const box = document.getElementById('auditResultContainer');
+      const badgeColors = {
+        emerald: "bg-emerald-100 text-emerald-900 border-emerald-200",
+        rose: "bg-rose-100 text-rose-900 border-rose-200",
+        amber: "bg-amber-100 text-amber-900 border-amber-200"
+      };
+      const scoreColor = data.totalScore >= 85 ? "text-emerald-600" : data.totalScore >= 60 ? "text-amber-600" : "text-rose-600";
+
+      const stepsHtml = data.step1Fix ? `
+        <div class="space-y-2 pt-1">
+          <div class="p-2.5 bg-white/10 rounded-xl text-[11px] text-gray-100 leading-relaxed">${data.step1Fix}</div>
+          <div class="p-2.5 bg-white/10 rounded-xl text-[11px] text-gray-100 leading-relaxed">${data.step2Fix || ''}</div>
+          <div class="p-2.5 bg-white/10 rounded-xl text-[11px] text-gray-100 leading-relaxed">${data.step3Fix || ''}</div>
+        </div>
+      ` : `<p class="text-xs leading-relaxed text-gray-200">${data.stylistFix || ''}</p>`;
+
+      box.innerHTML = `
+        <div class="flex justify-between items-start border-b border-gray-100 pb-3">
+          <div>
+            <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${badgeColors[data.verdictColor] || badgeColors.emerald}">${data.verdictTag}</span>
+            <h3 class="text-sm font-bold text-[#2D241E] mt-2">${data.title}</h3>
+          </div>
+          <div class="text-right shrink-0">
+            <span class="text-2xl font-black ${scoreColor}">${data.totalScore}</span>
+            <span class="text-[10px] text-gray-400 block font-bold">造型师评分</span>
+          </div>
+        </div>
+
+        <!-- 三维犀利点评条 -->
+        <div class="space-y-2.5 text-xs">
+          <div class="p-3 bg-[#F8F5F2] rounded-2xl space-y-1">
+            <div class="flex justify-between font-bold">
+              <span class="text-[#8E443D]">🎨 1. 暖秋肤色显白诊断</span>
+              <span>${data.colorScore} / 100</span>
+            </div>
+            <p class="text-[11px] text-gray-600 leading-relaxed">${data.colorComment}</p>
+          </div>
+
+          <div class="p-3 bg-[#F8F5F2] rounded-2xl space-y-1">
+            <div class="flex justify-between font-bold">
+              <span class="text-[#2D241E]">📐 2. 窄胸宽胯 (76/72/93.5) 骨相诊断</span>
+              <span>${data.bodyScore} / 100</span>
+            </div>
+            <p class="text-[11px] text-gray-600 leading-relaxed">${data.bodyComment}</p>
+          </div>
+
+          <div class="p-3 bg-[#F8F5F2] rounded-2xl space-y-1">
+            <div class="flex justify-between font-bold">
+              <span class="text-amber-800">✨ 3. 41岁高智感气场诊断</span>
+              <span>${data.vibeScore} / 100</span>
+            </div>
+            <p class="text-[11px] text-gray-600 leading-relaxed">${data.vibeComment}</p>
+          </div>
+        </div>
+
+        <!-- 主理人 3 步急救优化处方 + 收藏按钮 -->
+        <div class="p-4 bg-[#2D241E] text-white rounded-2xl space-y-2.5">
+          <div class="flex justify-between items-center">
+            <p class="text-[10px] font-bold text-[#D9AD98] uppercase tracking-wider flex items-center gap-1">
+              <i data-lucide="zap" class="w-3.5 h-3.5"></i> 主理人 Aura 犀利优化处方
+            </p>
+            <button onclick="saveCurrentAuditToCollection()" class="px-2.5 py-1 rounded-full bg-[#8E443D] hover:bg-[#a35048] text-white text-[10px] font-bold flex items-center gap-1 active:scale-95 transition">
+              <i data-lucide="heart" class="w-3 h-3 fill-current"></i> 收藏此优化方案
+            </button>
+          </div>
+          ${stepsHtml}
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    function loadPresetAudit(key) {
+      if (presetAudits[key]) {
+        renderAuditResult(presetAudits[key]);
+      }
+    }
+
+    function handleAuditPhotoUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        uploadedAuditBase64 = evt.target.result;
+        document.getElementById('auditPreviewImg').src = uploadedAuditBase64;
+        document.getElementById('auditPreviewWrap').classList.remove('hidden');
+        document.getElementById('auditUploadPlaceholder').classList.add('hidden');
+        analyzeImageDominantWarmth(uploadedAuditBase64);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // 像素级色温快速预检 + 支持调用 Gemini 视觉大模型深度分析
+    function analyzeImageDominantWarmth(dataUrl) {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 40;
+        canvas.height = 40;
+        ctx.drawImage(img, 0, 0, 40, 40);
+        const pixels = ctx.getImageData(10, 10, 20, 20).data;
+        let rSum = 0, gSum = 0, bSum = 0, count = 0;
+        for (let i = 0; i < pixels.length; i += 4) {
+          rSum += pixels[i];
+          gSum += pixels[i+1];
+          bSum += pixels[i+2];
+          count++;
+        }
+        const r = Math.round(rSum / count);
+        const g = Math.round(gSum / count);
+        const b = Math.round(bSum / count);
+        const isWarm = r >= b;
+        const userNote = document.getElementById('auditUserNote').value || '您上传的实拍穿搭照片';
+
+        renderAuditResult({
+          title: `我的穿搭实拍点评：${userNote}`,
+          totalScore: isWarm ? 89 : 62,
+          verdictTag: isWarm ? "✅ 色温和谐显白 · 按下方3步微调比例即封神" : "⚠️ 检测到冷调/比例失衡风险 · 立即执行3步急救",
+          verdictColor: isWarm ? "emerald" : "amber",
+          colorScore: isWarm ? 92 : 56,
+          colorComment: isWarm
+            ? `照片主色温偏暖（RGB均值 ${r},${g},${b}），与您的暖橘底肤色契合，脸部气色温润自然。`
+            : `照片主色温偏冷（RGB均值 ${r},${g},${b}），容易反衬出面部的黄气与疲态，必须靠暖金配饰与暖妆破局。`,
+          bodyScore: 84,
+          bodyComment: "毒舌提醒：您的76cm窄胸最怕上半身单薄紧贴，93.5cm臀胯最怕下装卡裆或脚踝过细悬空。",
+          vibeScore: 88,
+          vibeComment: "点击右上【犀利点评】可调用 AI 视觉深度解析；或直接执行下方3步急救指令：",
+          step1Fix: "【第1步·锁死72cm高腰与丰胸】把内搭前摆塞进裤腰/裙腰最细处，外搭敞开形成纵向H线，并在胸前叠加项链或丝巾增加厚度。",
+          step2Fix: "【第2步·宽腮帮与重心提拉】戴上您的【10-11mm怪色爱迪生孔雀金耳钉】，腮红用Rhode泰迪棕从颧骨斜向太阳穴提拉。",
+          step3Fix: "【第3步·鞋履配重平衡】换上深咖啡色方头乐福鞋（通勤）或奶油白堆堆袜+厚底老爹鞋（休闲运动），稳住下半身地基。"
+        });
+      };
+      img.src = dataUrl;
+    }
+
+    async function runAIImageAudit() {
+      const btn = document.getElementById('auditStartBtn');
+      const note = document.getElementById('auditUserNote').value || '请犀利点评我的这套穿搭并给出具体优化建议';
+
+      if (!uploadedAuditBase64) {
+        analyzeImageDominantWarmthFromNote(note);
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i> 毒舌审片中...`;
+      lucide.createIcons();
+
+      try {
+        const apiKey = "";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+        const base64Clean = uploadedAuditBase64.split(',')[1];
+        const mimeType = uploadedAuditBase64.split(';')[0].split(':')[1] || "image/jpeg";
+
+        const systemPrompt = `你是眼光毒舌、一针见血但极度专业的私人造型师 Aura。客户档案：41岁女性，166cm/57.5kg，胸围76cm(窄胸)，腰围72cm(细腰)，臀围93.5cm(宽胯梨形)，娃娃脸腮帮偏宽，Light Me 16型为【暖秋型 Warm Autumn】(暖黄/暖橘底肤色，深黑发色)。请根据客户上传的穿搭照片和备注，返回严格的JSON：{ "title": "穿搭简述", "totalScore": 0-100整数, "verdictTag": "简短犀利毒舌结论标签", "verdictColor": "emerald或amber或rose", "colorScore": 0-100, "colorComment": "针对暖秋肤色的犀利点评", "bodyScore": 0-100, "bodyComment": "针对76窄胸/72细腰/93.5宽胯/宽腮帮的一针见血点评", "vibeScore": 0-100, "vibeComment": "针对41岁高智感气质点评", "step1Fix": "【第1步·上半身/领口/色彩优化】具体指令", "step2Fix": "【第2步·腰臀比例/下半身优化】具体指令", "step3Fix": "【第3步·鞋袜/首饰/妆发点睛】具体指令" }`;
+
+        const payload = {
+          contents: [{
+            role: "user",
+            parts: [
+              { text: `客户诉求：${note}。请严格按JSON输出犀利造型点评与3步优化方案。` },
+              { inlineData: { mimeType, data: base64Clean } }
+            ]
+          }],
+          systemInstruction: { parts: [{ text: systemPrompt }] },
+          generationConfig: { responseMimeType: "application/json" }
+        };
+
+        const res = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const result = await res.json();
+        const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (text) {
+          const parsed = JSON.parse(text);
+          renderAuditResult(parsed);
+        }
+      } catch (err) {
+        analyzeImageDominantWarmth(uploadedAuditBase64);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 犀利点评`;
+        lucide.createIcons();
+      }
+    }
+
+    function analyzeImageDominantWarmthFromNote(note) {
+      const isCold = /蓝|粉|黑|灰|白|船袜|紧身/.test(note) && !/奶油|暖|卡其|堆堆袜/.test(note);
+      renderAuditResult({
+        title: `我的穿搭诊断：${note}`,
+        totalScore: isCold ? 58 : 92,
+        verdictTag: isCold ? "⚠️ 触犯暖秋/梨形禁忌 · 按下方3步立即整改" : "🏆 思路契合高智美学 · 细节再升级",
+        verdictColor: isCold ? "amber" : "emerald",
+        colorScore: isCold ? 55 : 95,
+        colorComment: isCold
+          ? "您描述的单品带有冷调或紧绷倾向，直接上身容易显脸色暗黄。必须用奶油白内搭与18K金饰做暖化缓冲。"
+          : "色彩处于暖秋60色安全区，能与您的红棕唇色、深黑瞳孔形成极佳的温润对比。",
+        bodyScore: isCold ? 60 : 92,
+        bodyComment: "谨记上加法、下减法：上衣选 S 码正肩或带胸袋款填充 76cm 胸围；下装选高腰阔腿款隐藏 93.5cm 臀围。",
+        vibeScore: 90,
+        vibeComment: "只要保持面料的天然垂坠感与筋骨感，就能轻松穿出 41 岁精英女性的松弛统治力。",
+        step1Fix: "【第1步·上半身扩容】内搭选奶油白或湖水青，外搭带胸袋开衫或平直肩马甲，横向扩充76cm胸围。",
+        step2Fix: "【第2步·下半身藏胯】换上38码Arket深卡其绿灯芯绒阔腿裤，腰线卡在72cm处，遮住93.5cm臀胯。",
+        step3Fix: "【第3步·瘦脸与鞋袜】耳戴10-11mm爱迪生金珠提拉宽腮帮，脚涂SHIRO #1I03陶土甲油配深咖乐福鞋。"
+      });
+    }
+
+    // =========================================================================
+    // 3. TAB 3: 一衣多穿视觉画报引擎 (动态生成高定全身穿搭SVG效果图 + 一键收藏)
+    // =========================================================================
+    let currentGarmentKey = 'maxmara';
+    let currentStyleIdx = 0;
+    let uploadedGarmentBase64 = null;
+
+    const versatileDatabase = {
+      maxmara: {
+        name: "Max Mara 经典焦糖驼色浴袍大衣 (101801 / Labbro)",
+        whyGreat: "暖秋型人的终极战袍！焦糖驼色与您的暖橘底肤色同频共振，大翻领横向拉宽肩胸比（拯救76cm窄胸），腰带系在72cm细腰处，下摆完美隐形93.5cm宽胯。",
+        styles: [
+          {
+            styleName: "风格1 · 时尚高智知识分子 (The Row 风)",
+            vibeTag: "敞开穿后系带 · 纵向H线显高5cm",
+            palette: ["#B68A5E", "#F5F2EB", "#4B5332", "#3E2723"],
+            headToToe: [
+              { part: "外披核心", item: "Max Mara 焦糖驼浴袍大衣（敞开穿，腰带在背后系紧收腰）", hex: "#B68A5E" },
+              { part: "丰胸内搭", item: "MaX 奶油白双胸袋羊毛衫 (S码，双贴袋填充76cm窄胸)", hex: "#F5F2EB" },
+              { part: "藏胯下装", item: "Arket 深卡其绿灯芯绒阔腿裤 (38码，直筒垂坠遮93.5cm宽胯)", hex: "#4B5332" },
+              { part: "鞋包配饰", item: "苦浓咖啡方头乐福鞋 + 10-11mm怪色爱迪生孔雀金耳钉 + 玳瑁框镜", hex: "#3E2723" }
+            ],
+            secret: "大衣敞开露出内部高腰线，奶油白双胸袋毛衣把焦点锁在上半身，卡其绿灯芯绒裤与驼色大衣形成绝美大地撞色。"
+          },
+          {
+            styleName: "风格2 · 年轻活力高街感 (Athflow 减龄风)",
+            vibeTag: "混搭卫衣/T恤与老爹鞋 · 减龄10岁",
+            palette: ["#B68A5E", "#8B864E", "#EFECE6", "#D8C6B2"],
+            headToToe: [
+              { part: "外披核心", item: "Max Mara 焦糖驼浴袍大衣（袖口往上挽两道露出小臂）", hex: "#B68A5E" },
+              { part: "活力内搭", item: "Icebreaker 芥末绿羊毛T恤 + 燕麦米开衫披肩上当围巾", hex: "#8B864E" },
+              { part: "藏胯下装", item: "羊皮纸暖白高腰垂感直筒牛仔裤 / 阔腿休闲裤", hex: "#EFECE6" },
+              { part: "鞋包配饰", item: "奶油白中筒堆堆袜 + 3.5cm米色复古跑鞋 + 藏青大斜檐草帽", hex: "#D8C6B2" }
+            ],
+            secret: "用燕麦米针织衫随意披在浴袍大衣肩头，不仅瞬间化解大衣的隆重感，还能让肩胸量感翻倍，显得年轻又松弛。"
+          },
+          {
+            styleName: "风格3 · 静奢老钱风 (Loro Piana 同色系)",
+            vibeTag: "浴袍系带法 · 极致温润贵气",
+            palette: ["#B68A5E", "#9E8E82", "#E5DACB", "#6F4E37"],
+            headToToe: [
+              { part: "外披核心", item: "Max Mara 焦糖驼浴袍大衣（随性系带，死死卡住72cm细腰）", hex: "#B68A5E" },
+              { part: "温润内搭", item: "之禾 ICICLE 暖灰褐真丝羊绒半高领衫", hex: "#9E8E82" },
+              { part: "飘逸下装", item: "香槟燕麦米重磅真丝斜裁A字过膝长裙", hex: "#E5DACB" },
+              { part: "鞋包配饰", item: "摩卡棕尖头中跟短靴 + 南洋香槟金巴洛克珍珠锁骨链", hex: "#6F4E37" }
+            ],
+            secret: "系带穿浴袍大衣时，把大翻领稍微往外拉宽一点形成大V领，内搭巴洛克金珠填补锁骨空白，下摆A字散开极显腰细。"
+          },
+          {
+            styleName: "风格4 · 干练大女主气场 (金南珠职场统治力)",
+            vibeTag: "内深外驼 · 权威感拉满",
+            palette: ["#B68A5E", "#352822", "#352822", "#983E2B"],
+            headToToe: [
+              { part: "外披核心", item: "Max Mara 焦糖驼浴袍大衣（气场全开披挂式/敞开穿）", hex: "#B68A5E" },
+              { part: "内搭叠穿", item: "CHICJOC 浓咖啡褐四口袋开衫 + 40cm金链", hex: "#352822" },
+              { part: "利落下装", item: "浓咖啡黑高腰精纺羊毛带中缝阔腿西装裤", hex: "#352822" },
+              { part: "红唇高光", item: "烤枫叶红棕唇妆 + BobbiBrown #2桃褐挑眉 + 尖头短靴", hex: "#983E2B" }
+            ],
+            secret: "内搭上下顺色（浓咖啡黑）在视觉上形成一道瘦长黑色闪电，外披焦糖驼大衣提亮肤色，显瘦十斤且气场两米八。"
+          }
+        ]
+      },
+      arket_pants: {
+        name: "Arket 深卡其绿灯芯绒高腰阔腿裤 (38码)",
+        whyGreat: "您93.5cm宽胯的头号救星！纵向坑条灯芯绒自带建筑筋骨感，绝不贴肉，深卡其绿更是暖秋型人显白又高级的‘彩色黑’。",
+        styles: [
+          {
+            styleName: "风格1 · 时尚高智通勤",
+            vibeTag: "上浅下深 · 3:7黄金比例",
+            palette: ["#F5F2EB", "#4B5332", "#73655B", "#3E2723"],
+            headToToe: [
+              { part: "膨胀上装", item: "MaX 奶油白双胸袋Polo领羊毛衫 (S码前摆微塞)", hex: "#F5F2EB" },
+              { part: "叠穿外套", item: "C'EST M 橡子灰棕短夹克", hex: "#73655B" },
+              { part: "核心下装", item: "Arket 深卡其绿灯芯绒阔腿裤 (38码)", hex: "#4B5332" },
+              { part: "配饰点睛", item: "深咖鳄鱼纹皮带 + 10-11mm怪色爱迪生孔雀金耳钉", hex: "#3E2723" }
+            ],
+            secret: "奶油白上衣塞进高腰灯芯绒裤，利用深咖皮带强调72cm细腰，腿长瞬间突破一米一。"
+          },
+          {
+            styleName: "风格2 · 年轻活力周末",
+            vibeTag: "同色系渐变 · 户外老钱风",
+            palette: ["#8B864E", "#4B5332", "#F5F2EB", "#D48B28"],
+            headToToe: [
+              { part: "活力上装", item: "Icebreaker 芥末绿美利奴羊毛短袖T恤 (S码)", hex: "#8B864E" },
+              { part: "肩头披搭", item: "奶油白针织开衫随意搭在肩上打结", hex: "#F5F2EB" },
+              { part: "核心下装", item: "Arket 深卡其绿灯芯绒阔腿裤", hex: "#4B5332" },
+              { part: "鞋帽配饰", item: "米白厚底德训鞋/老爹鞋 + 琥珀玳瑁大框太阳镜", hex: "#D48B28" }
+            ],
+            secret: "芥末绿T恤与深卡其绿长裤形成明暗渐变的森林系配色，肩披白毛衣横向扩充76cm窄胸。"
+          },
+          {
+            styleName: "风格3 · 静奢温柔书卷气",
+            vibeTag: "上软下硬 · 汤唯式松弛",
+            palette: ["#9E8E82", "#4B5332", "#E8D0A9", "#352822"],
+            headToToe: [
+              { part: "温润上装", item: "之禾 ICICLE 暖灰褐真丝羊绒针织上衣", hex: "#9E8E82" },
+              { part: "核心下装", item: "Arket 深卡其绿灯芯绒阔腿裤", hex: "#4B5332" },
+              { part: "丰胸珠宝", item: "南洋香槟金巴洛克珍珠短链 (40cm锁骨位)", hex: "#E8D0A9" },
+              { part: "鞋包配饰", item: "苦浓咖啡软皮乐福鞋 + 暖灰褐羊绒围巾", hex: "#352822" }
+            ],
+            secret: "用硬挺的灯芯绒裤托住柔滑的之禾羊绒衫，彻底消灭软针织的睡衣感。"
+          },
+          {
+            styleName: "风格4 · 复古摩登大女主",
+            vibeTag: "红配绿高阶美学 · 惊艳社交场",
+            palette: ["#8E5F5F", "#4B5332", "#352822", "#D4AF37"],
+            headToToe: [
+              { part: "内搭提气", item: "温润豆沙红/陶土红修身针织打底", hex: "#8E5F5F" },
+              { part: "外搭廓形", item: "浓咖啡褐正肩廓形西装外套", hex: "#352822" },
+              { part: "核心下装", item: "Arket 深卡其绿灯芯绒阔腿裤", hex: "#4B5332" },
+              { part: "高光配饰", item: "18K哑光拉丝金几何耳环 + 复古红棕唇膏", hex: "#D4AF37" }
+            ],
+            secret: "低饱和度的豆沙红与深卡其绿是暖秋型独享的复古电影配色，高级感令人过目难忘。"
+          }
+        ]
+      },
+      max_knit: {
+        name: "MaX Leisure 双胸袋100%羊毛开衫 (奶油白/暖烟粉 · S码)",
+        whyGreat: "专为76cm窄胸设计的作弊神衣！胸前双贴袋物理增加胸部立体厚度，Polo小翻领拉长脖颈修饰宽腮帮，下摆侧开叉完全不卡93.5cm宽胯。",
+        styles: [
+          {
+            styleName: "风格1 · 时尚有气质 (清冷知识分子)",
+            vibeTag: "解开上下扣 · 双向V字延展",
+            palette: ["#F5F2EB", "#58534E", "#352822", "#E8D0A9"],
+            headToToe: [
+              { part: "核心上装", item: "MaX 奶油白双胸袋羊毛衫 (S码，解开最上1颗和最下2颗扣)", hex: "#F5F2EB" },
+              { part: "藏胯下装", item: "Edition 橄榄暖炭灰高腰A字过膝半身长裙", hex: "#58534E" },
+              { part: "鞋履配饰", item: "深咖啡色方头乐福鞋 + 10-11mm爱迪生孔雀金耳钉", hex: "#352822" },
+              { part: "锁骨点睛", item: "18K细金链单颗南洋金珠吊坠", hex: "#E8D0A9" }
+            ],
+            secret: "只扣中间3颗扣子，上面形成V领瘦娃娃脸，下面形成倒V开口释放宽胯。"
+          },
+          {
+            styleName: "风格2 · 年轻有活力 (春日艺术家)",
+            vibeTag: "干枯玫瑰粉 × 奶油白 · 减龄显白",
+            palette: ["#C59B9B", "#F5F2EB", "#9A5B53", "#D4AF37"],
+            headToToe: [
+              { part: "核心上装", item: "MaX 暖烟粉/干枯玫瑰色双胸袋羊毛衫 (S码)", hex: "#C59B9B" },
+              { part: "清爽下装", item: "奶油白高腰阔腿亚麻长裤 / 直筒裤", hex: "#F5F2EB" },
+              { part: "美甲妆容", item: "Rhode 泰迪棕腮红 + SHIRO #1I03 陶土肉桂脚甲配穆勒鞋", hex: "#9A5B53" },
+              { part: "精致首饰", item: "18K暖金托横排小钻下挂珍珠耳钉", hex: "#D4AF37" }
+            ],
+            secret: "图2模特同款穿法！暖烟粉与奶油白裤子组合清爽又显贵，彻底洗去沉闷感。"
+          },
+          {
+            styleName: "风格3 · 静奢老钱叠穿",
+            vibeTag: "内搭高领 · 层次感扩容",
+            palette: ["#F5F2EB", "#D9C1AC", "#4B5332", "#6F4E37"],
+            headToToe: [
+              { part: "核心外搭", item: "MaX 奶油白双胸袋羊毛衫（当薄外套敞开或半扣）", hex: "#F5F2EB" },
+              { part: "打底叠穿", item: "暖杏色/燕麦米细腻坑条短袖T恤 (衣架左二款)", hex: "#D9C1AC" },
+              { part: "核心下装", item: "Arket 深卡其绿灯芯绒阔腿裤", hex: "#4B5332" },
+              { part: "鞋包配饰", item: "太妃糖暖棕麂皮托特包 + 咖啡色乐福鞋", hex: "#6F4E37" }
+            ],
+            secret: "利用奶油白羊毛衫+暖杏色坑条T的同色系深浅叠穿，上半身丰满度再加20%。"
+          },
+          {
+            styleName: "风格4 · 干练大女主精英",
+            vibeTag: "叠穿马甲 · 建筑感直角肩",
+            palette: ["#F5F2EB", "#4A4A4A", "#352822", "#D4AF37"],
+            headToToe: [
+              { part: "核心内搭", item: "MaX 奶油白双胸袋羊毛衫（翻领拉出马甲外）", hex: "#F5F2EB" },
+              { part: "外搭铠甲", item: "C'EST M 深炭灰平直肩双面尼马甲", hex: "#4A4A4A" },
+              { part: "利落下装", item: "浓咖啡色高腰垂感西装阔腿裤", hex: "#352822" },
+              { part: "气场配饰", item: "复古黄铜金耳圈 + 琥珀纹腕表", hex: "#D4AF37" }
+            ],
+            secret: "把奶油白Polo领翻在深炭灰马甲外面，既阻断了炭灰对肤色的冷感，又打造出38cm完美直角肩。"
+          }
+        ]
+      },
+      cestm_vest: {
+        name: "C'EST M 深炭灰双面尼阔肩马甲 / 橡子灰棕夹克",
+        whyGreat: "平直硬挺的肩部线条直接把窄肩窄胸撑起来，无袖马甲露出的手臂线条形成纵向切割，是梨形身材叠穿的黄金外搭。",
+        styles: [
+          {
+            styleName: "风格1 · 时尚高智感",
+            vibeTag: "外冷内暖 · 珍珠破局",
+            palette: ["#4A4A4A", "#F5F2EB", "#EFECE6", "#E8D0A9"],
+            headToToe: [
+              { part: "核心外搭", item: "C'EST M 深炭灰双面尼马甲", hex: "#4A4A4A" },
+              { part: "暖化内搭", item: "奶油白半高领羊绒衫（隔绝炭灰近脸）", hex: "#F5F2EB" },
+              { part: "藏胯下装", item: "羊皮纸暖白垂坠羊毛阔腿裤", hex: "#EFECE6" },
+              { part: "破局配饰", item: "多层次巴洛克金珠叠戴金链 + 棕色乐福鞋", hex: "#E8D0A9" }
+            ],
+            secret: "用上下一身奶油白内搭点亮深炭灰马甲，胸前叠戴金珠链瞬间聚焦视线。"
+          },
+          {
+            styleName: "风格2 · 年轻活力叠穿",
+            vibeTag: "豆沙红内搭 · 秋冬元气感",
+            palette: ["#4A4A4A", "#8E5F5F", "#4B5332", "#D8C6B2"],
+            headToToe: [
+              { part: "核心外搭", item: "C'EST M 深炭灰马甲 / 橡子灰棕夹克", hex: "#4A4A4A" },
+              { part: "提气内搭", item: "Icebreaker 豆沙红美利奴羊毛T恤 (S码)", hex: "#8E5F5F" },
+              { part: "藏胯下装", item: "Arket 深卡其绿灯芯绒阔腿裤", hex: "#4B5332" },
+              { part: "鞋袜配饰", item: "燕麦米老爹鞋 + 暖灰色薄透羊绒围巾绕颈", hex: "#D8C6B2" }
+            ],
+            secret: "豆沙红T恤露出一截领口与袖口，瞬间激活深灰马甲的暖意与年轻感。"
+          },
+          {
+            styleName: "风格3 · 静奢老钱风",
+            vibeTag: "大地顺色 · 温润知性",
+            palette: ["#73655B", "#D9C1AC", "#58534E", "#352822"],
+            headToToe: [
+              { part: "核心外搭", item: "C'EST M 橡子灰棕短款夹克", hex: "#73655B" },
+              { part: "温润内搭", item: "暖杏色坑条针织T恤 (衣架第2款)", hex: "#D9C1AC" },
+              { part: "优雅下装", item: "Edition 橄榄灰高腰A字长裙", hex: "#58534E" },
+              { part: "鞋包配饰", item: "苦浓咖啡短靴 + 10-11mm爱迪生孔雀金耳钉", hex: "#352822" }
+            ],
+            secret: "短夹克下摆刚好卡在72cm细腰上方，搭配过膝A字裙，宽胯完全隐形。"
+          },
+          {
+            styleName: "风格4 · 干练大女主",
+            vibeTag: "真空/V领单穿马甲 · 摩登先锋",
+            palette: ["#4A4A4A", "#352822", "#D4AF37", "#AE5B53"],
+            headToToe: [
+              { part: "核心上装", item: "C'EST M 深炭灰马甲（内搭奶油白丝绸吊带露出V领锁骨）", hex: "#4A4A4A" },
+              { part: "气场下装", item: "浓咖啡色超长拖地高腰阔腿西装裤", hex: "#352822" },
+              { part: "面部高光", item: "琥珀玳瑁大框墨镜 + 18K粗金锁骨链", hex: "#D4AF37" },
+              { part: "红棕气场", item: "红棕调哑光唇膏 + Rhode泰迪棕修容式腮红", hex: "#AE5B53" }
+            ],
+            secret: "适当露肤（锁骨与手臂）能极大减轻深色马甲的沉重感，彰显41岁紧致自律的线条。"
+          }
+        ]
+      }
+    };
+
+    function selectCoreGarment(key, btnEl) {
+      currentGarmentKey = key;
+      document.querySelectorAll('#garmentPresetBtns .garment-btn').forEach(b => {
+        b.className = "garment-btn p-3 rounded-2xl border border-[#EAE2D6] bg-white text-left transition";
+      });
+      if (btnEl) {
+        btnEl.className = "garment-btn active p-3 rounded-2xl border-2 border-[#8E443D] bg-[#8E443D]/5 text-left transition";
+      }
+      renderVersatileLook();
+    }
+
+    function switchVersatileStyle(idx, btnEl) {
+      currentStyleIdx = idx;
+      document.querySelectorAll('#versatileStyleTabs .v-style-btn').forEach(b => {
+        b.className = "v-style-btn flex-1 py-2 rounded-xl text-[11px] font-bold text-gray-500 transition";
+      });
+      if (btnEl) {
+        btnEl.className = "v-style-btn active flex-1 py-2 rounded-xl text-[11px] font-bold bg-[#8E443D] text-white shadow-sm transition";
+      }
+      renderVersatileLook();
+    }
+
+    function handleGarmentUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        uploadedGarmentBase64 = evt.target.result;
+        document.getElementById('customGarmentThumb').src = uploadedGarmentBase64;
+        const banner = document.getElementById('customGarmentBanner');
+        banner.classList.remove('hidden');
+        banner.classList.add('flex');
+        generateCustomGarmentLooks();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function generateCustomGarmentLooks() {
+      const customName = document.getElementById('customGarmentNameInput').value || '您上传的核心单品';
+      const btn = document.getElementById('genCustomBtn');
+      versatileDatabase.custom_upload = {
+        name: `${customName} (专属高定一衣四穿方案)`,
+        whyGreat: "围绕您上传的单品，严格执行【暖秋60色同频 + 76cm窄胸扩容 + 72cm高腰锁定 + 93.5cm宽胯隐形】四重法则：",
+        styles: [
+          {
+            styleName: "风格1 · 时尚高智知识分子",
+            vibeTag: "The Row 极简静奢 · 通勤王牌",
+            palette: ["#9E8E82", "#F5F2EB", "#4B5332", "#352822"],
+            headToToe: [
+              { part: "核心主角", item: `${customName}（解开领口或挽起袖口制造空气感）`, hex: "#9E8E82" },
+              { part: "提亮过渡", item: "奶油珍珠白真丝/羊毛内搭（隔绝冷色、丰盈76cm窄胸）", hex: "#F5F2EB" },
+              { part: "藏胯下装", item: "Arket 深卡其绿灯芯绒阔腿裤 (38码直筒垂坠)", hex: "#4B5332" },
+              { part: "高光配饰", item: "10-11mm 怪色爱迪生孔雀金耳钉 + 苦浓咖啡乐福鞋", hex: "#352822" }
+            ],
+            secret: "用奶油白与爱迪生金珠在锁骨区打高光，下半身交由深卡其绿阔腿裤完成宽胯隐形。"
+          },
+          {
+            styleName: "风格2 · 年轻有活力 (Athflow 减龄)",
+            vibeTag: "混搭松弛感 · 周末出游",
+            palette: ["#D8C6B2", "#8B864E", "#F5F2EB", "#D48B28"],
+            headToToe: [
+              { part: "核心主角", item: `${customName}`, hex: "#D8C6B2" },
+              { part: "活力叠穿", item: "Icebreaker 芥末绿/豆沙色羊毛T恤 + 肩披针织衫", hex: "#8B864E" },
+              { part: "鞋袜平衡", item: "奶油白中筒堆堆袜 + 3.5cm米色复古跑鞋", hex: "#F5F2EB" },
+              { part: "瘦脸配饰", item: "藏青色中大斜波浪檐草帽 + 琥珀玳瑁框太阳镜", hex: "#D48B28" }
+            ],
+            secret: "用大斜檐帽和肩披针织衫拉宽头部与肩部框架，娃娃脸与宽腮帮瞬间显小30%。"
+          },
+          {
+            styleName: "风格3 · 静奢老钱风",
+            vibeTag: "大地同色系渐变 · 温润显贵",
+            palette: ["#B68A5E", "#E5DACB", "#73655B", "#E8D0A9"],
+            headToToe: [
+              { part: "核心主角", item: `${customName}`, hex: "#B68A5E" },
+              { part: "同频搭档", item: "香槟燕麦米重磅真丝衬衫 / 暖灰褐羊绒衫", hex: "#E5DACB" },
+              { part: "优雅下装", item: "Edition 橄榄灰高腰挺括 A 字过膝长裙", hex: "#73655B" },
+              { part: "珠宝加持", item: "40cm 巴洛克香槟金珍珠项链 + 摩卡棕短靴", hex: "#E8D0A9" }
+            ],
+            secret: "全身控制在3个暖秋大地色以内，靠真丝、羊绒与珍珠的光泽差异拉满老钱层次感。"
+          },
+          {
+            styleName: "风格4 · 干练大女主",
+            vibeTag: "建筑感廓形 · 重要商务场合",
+            palette: ["#352822", "#F5F2EB", "#A65E4E", "#D4AF37"],
+            headToToe: [
+              { part: "核心主角", item: `${customName}（搭配深咖鳄鱼纹腰带强调72cm腰线）`, hex: "#352822" },
+              { part: "气场外搭", item: "Max Mara 驼色大衣 或 C'EST M 平直肩马甲", hex: "#F5F2EB" },
+              { part: "骨相美妆", item: "BobbiBrown #2桃褐挑眉 + Rhode泰迪棕修容腮红", hex: "#A65E4E" },
+              { part: "金属威严", item: "18K哑光拉丝金几何耳环 + 尖头细跟短靴", hex: "#D4AF37" }
+            ],
+            secret: "眉尾微提2mm + 颧骨C字斜扫泰迪棕腮红，配合正肩廓形，展现41岁不可替代的智性权威。"
+          }
+        ]
+      };
+      currentGarmentKey = 'custom_upload';
+      renderVersatileLook();
+      if (btn) btn.textContent = "已生成4风格";
+    }
+
+    function generateOutfitFashionIllustrationSVG(st, garmentKey) {
+      const cCoat = st.palette[0] || '#B68A5E';
+      const cInner = st.palette[1] || '#F5F2EB';
+      const cBottom = st.palette[2] || '#4B5332';
+      const cShoe = st.palette[3] || '#3E2723';
+      const isSkirt = st.headToToe.some(x => /裙/.test(x.item));
+      const hasHat = st.headToToe.some(x => /帽/.test(x.item));
+
+      return `
+        <svg viewBox="0 0 360 230" class="w-full h-52 rounded-2xl bg-gradient-to-br from-[#F6F2EC] via-[#EFE9E0] to-[#E6DDD0] border border-[#EAE2D6] shadow-inner overflow-hidden">
+          <defs>
+            <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#2D241E" flood-opacity="0.14"/>
+            </filter>
+          </defs>
+
+          <!-- 背景杂志网格与黄金比例分割线 -->
+          <line x1="20" y1="88" x2="215" y2="88" stroke="#8E443D" stroke-width="0.8" stroke-dasharray="3,3" opacity="0.5"/>
+          <text x="24" y="84" fill="#8E443D" font-size="8" font-weight="bold">72cm 黄金高腰线 (3:7分割)</text>
+
+          <line x1="20" y1="52" x2="115" y2="52" stroke="#2D241E" stroke-width="0.7" stroke-dasharray="2,2" opacity="0.4"/>
+          <text x="24" y="48" fill="#58534E" font-size="7.5" font-weight="bold">76cm 窄胸扩容区 (+15%)</text>
+
+          <line x1="20" y1="128" x2="115" y2="128" stroke="#2D241E" stroke-width="0.7" stroke-dasharray="2,2" opacity="0.4"/>
+          <text x="24" y="124" fill="#58534E" font-size="7.5" font-weight="bold">93.5cm 宽胯隐形区</text>
+
+          <!-- 中心全身高定模特廓形手绘图 -->
+          <g transform="translate(118, 12)" filter="url(#softShadow)">
+            <!-- 头部与深黑微卷发 -->
+            <path d="M36,14 C24,14 22,28 24,38 C28,38 52,38 56,38 C58,28 56,14 44,14 Z" fill="#181210"/>
+            <ellipse cx="40" cy="24" rx="8.5" ry="10" fill="#F1C9B8"/>
+            <!-- 10-11mm 爱迪生金珠耳钉高光点 -->
+            <circle cx="30.5" cy="26" r="2.2" fill="#E5C158"/>
+            <circle cx="49.5" cy="26" r="2.2" fill="#E5C158"/>
+            ${hasHat ? `<path d="M18,16 Q40,4 62,16 Q70,20 56,19 L24,19 Q10,20 18,16 Z" fill="#232F3E"/>` : ''}
+
+            <!-- 修长脖颈与V领锁骨金珠 -->
+            <rect x="36.5" y="33" width="7" height="8" rx="2" fill="#E8BEA8"/>
+            <circle cx="40" cy="40" r="1.8" fill="#D4AF37"/>
+
+            <!-- 内搭高领/V领毛衣 (cInner) -->
+            <path d="M24,40 L56,40 L53,86 L27,86 Z" fill="${cInner}" stroke="#2D241E" stroke-width="0.5"/>
+
+            <!-- 下装：高腰阔腿裤 或 A字过膝长裙 (cBottom) -->
+            ${isSkirt ? `
+              <path d="M25,84 L55,84 L68,176 L12,176 Z" fill="${cBottom}" stroke="#2D241E" stroke-width="0.6"/>
+              <line x1="40" y1="84" x2="38" y2="176" stroke="#FFFFFF" stroke-width="0.5" opacity="0.25"/>
+            ` : `
+              <path d="M25,84 L55,84 L62,184 L42,184 L40,115 L38,184 L18,184 Z" fill="${cBottom}" stroke="#2D241E" stroke-width="0.6"/>
+              <!-- 裤管笔直中缝线 -->
+              <line x1="31" y1="88" x2="28" y2="182" stroke="#FFFFFF" stroke-width="0.6" opacity="0.3"/>
+              <line x1="49" y1="88" x2="52" y2="182" stroke="#FFFFFF" stroke-width="0.6" opacity="0.3"/>
+            `}
+
+            <!-- 外套/核心单品廓形 (cCoat) -->
+            ${garmentKey === 'maxmara' ? `
+              <!-- MaxMara 大翻领长款浴袍大衣 -->
+              <path d="M14,39 L31,38 L37,68 L26,158 L10,154 L7,82 Z" fill="${cCoat}" stroke="#2D241E" stroke-width="0.6"/>
+              <path d="M66,39 L49,38 L43,68 L54,158 L70,154 L73,82 Z" fill="${cCoat}" stroke="#2D241E" stroke-width="0.6"/>
+              <!-- 大翻领立体阴影 -->
+              <polygon points="31,38 22,52 37,68" fill="#FFFFFF" opacity="0.18"/>
+              <polygon points="49,38 58,52 43,68" fill="#FFFFFF" opacity="0.18"/>
+            ` : `
+              <!-- 正肩双袋开衫/马甲/夹克 -->
+              <path d="M15,39 L33,39 L36,92 L17,95 L11,72 Z" fill="${cCoat}" stroke="#2D241E" stroke-width="0.6"/>
+              <path d="M65,39 L47,39 L44,92 L63,95 L69,72 Z" fill="${cCoat}" stroke="#2D241E" stroke-width="0.6"/>
+              <!-- 胸前扩容贴袋示意 -->
+              <rect x="20" y="52" width="10" height="9" rx="1.5" fill="none" stroke="#FFFFFF" stroke-width="0.8" opacity="0.6"/>
+              <rect x="50" y="52" width="10" height="9" rx="1.5" fill="none" stroke="#FFFFFF" stroke-width="0.8" opacity="0.6"/>
+            `}
+
+            <!-- 72cm 高腰皮带/收腰点 -->
+            <rect x="25" y="82" width="30" height="3.5" rx="1" fill="#3E2723"/>
+            <rect x="38" y="81.5" width="4" height="4.5" rx="0.8" fill="#D4AF37"/>
+
+            <!-- 鞋履托底 (cShoe) -->
+            <ellipse cx="27" cy="188" rx="9" ry="4" fill="${cShoe}"/>
+            <ellipse cx="53" cy="188" rx="9" ry="4" fill="${cShoe}"/>
+          </g>
+
+          <!-- 右侧：Flat-lay 单品色卡分解图鉴 -->
+          <g transform="translate(230, 16)">
+            <rect x="0" y="0" width="116" height="196" rx="14" fill="#FFFFFF" opacity="0.88" stroke="#EAE2D6"/>
+            <text x="12" y="19" fill="#8E443D" font-size="8.5" font-weight="bold">LOOK 色卡与单品解构</text>
+
+            <rect x="12" y="28" width="22" height="22" rx="6" fill="${cCoat}" stroke="#EAE2D6"/>
+            <text x="40" y="38" fill="#2D241E" font-size="8" font-weight="bold">外搭核心色</text>
+            <text x="40" y="48" fill="#78716C" font-size="7">${cCoat}</text>
+
+            <rect x="12" y="58" width="22" height="22" rx="6" fill="${cInner}" stroke="#EAE2D6"/>
+            <text x="40" y="68" fill="#2D241E" font-size="8" font-weight="bold">提亮丰胸内搭</text>
+            <text x="40" y="78" fill="#78716C" font-size="7">${cInner}</text>
+
+            <rect x="12" y="88" width="22" height="22" rx="6" fill="${cBottom}" stroke="#EAE2D6"/>
+            <text x="40" y="98" fill="#2D241E" font-size="8" font-weight="bold">藏胯高腰下装</text>
+            <text x="40" y="108" fill="#78716C" font-size="7">${cBottom}</text>
+
+            <rect x="12" y="118" width="22" height="22" rx="6" fill="${cShoe}" stroke="#EAE2D6"/>
+            <text x="40" y="128" fill="#2D241E" font-size="8" font-weight="bold">稳重心鞋包</text>
+            <text x="40" y="138" fill="#78716C" font-size="7">${cShoe}</text>
+
+            <rect x="10" y="150" width="96" height="36" rx="8" fill="#2D241E"/>
+            <text x="18" y="164" fill="#D9AD98" font-size="7.5" font-weight="bold">✨ 视觉显高 +5cm</text>
+            <text x="18" y="177" fill="#FFFFFF" font-size="7">上身扩容 · 93.5胯隐形</text>
+          </g>
+        </svg>
+      `;
+    }
+
+    function renderVersatileLook() {
+      const g = versatileDatabase[currentGarmentKey];
+      const st = g.styles[currentStyleIdx];
+      const canvas = document.getElementById('versatileLookCanvas');
+      const lookId = `versatile_${currentGarmentKey}_${currentStyleIdx}`;
+      const isSaved = savedLooksList.some(item => item.id === lookId);
+      const svgIllustration = generateOutfitFashionIllustrationSVG(st, currentGarmentKey);
+
+      canvas.innerHTML = `
+        <!-- 核心单品骨相价值解析 -->
+        <div class="p-3.5 bg-[#F8F5F2] rounded-2xl border border-[#EAE2D6] space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-bold text-[#8E443D] uppercase">当前核心单品</span>
+            <span class="text-[10px] font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full">一衣四穿 · 视觉画报</span>
+          </div>
+          <h3 class="text-xs font-bold text-[#2D241E]">${g.name}</h3>
+          <p class="text-[11px] text-gray-600 leading-relaxed">${g.whyGreat}</p>
+        </div>
+
+        <!-- 选定风格的全身视觉参考图 + 收藏卡片 -->
+        <div class="p-4 bg-white rounded-3xl border-2 border-[#8E443D]/30 shadow-sm space-y-3.5">
+          <div class="flex justify-between items-start gap-2">
+            <div>
+              <span class="text-[10px] font-bold text-[#8E443D] uppercase">${st.vibeTag}</span>
+              <h4 class="text-sm font-bold text-[#2D241E] mt-0.5">${st.styleName}</h4>
+            </div>
+            <button onclick="toggleSaveVersatileLook()" class="px-3 py-1.5 rounded-full text-[11px] font-bold flex items-center gap-1 shrink-0 transition active:scale-95 ${
+              isSaved ? 'bg-rose-600 text-white shadow-sm' : 'bg-rose-50 text-rose-700 border border-rose-200'
+            }">
+              <i data-lucide="heart" class="w-3.5 h-3.5 ${isSaved ? 'fill-current' : ''}"></i>
+              <span>${isSaved ? '已收藏 Look' : '收藏此套搭配'}</span>
+            </button>
+          </div>
+
+          <!-- 直观全身穿搭效果图与比例解构画报 -->
+          <div class="relative">
+            ${uploadedGarmentBase64 && currentGarmentKey === 'custom_upload' ? `
+              <div class="mb-2 flex items-center gap-2 p-2 bg-[#F8F5F2] rounded-xl border border-[#EAE2D6]">
+                <img src="${uploadedGarmentBase64}" class="w-10 h-12 rounded-lg object-cover border border-black/10" />
+                <span class="text-[10px] text-gray-600 font-medium">已将您的上传单品融入下方全身比例画报中：</span>
+              </div>
+            ` : ''}
+            ${svgIllustration}
+          </div>
+
+          <!-- 从头到脚单品拆解 -->
+          <div class="space-y-2">
+            ${st.headToToe.map(row => `
+              <div class="p-2.5 bg-[#F8F5F2] rounded-xl flex items-center gap-3">
+                <div class="w-6 h-6 rounded-lg shadow-inner border border-black/10 shrink-0" style="background-color: ${row.hex}"></div>
+                <div class="min-w-0 flex-1">
+                  <span class="text-[9px] font-bold text-gray-400 uppercase block">${row.part}</span>
+                  <p class="text-xs font-bold text-[#2D241E]">${row.item}</p>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- 造型师点睛秘诀 -->
+          <div class="p-3 bg-[#2D241E] text-white rounded-2xl text-[11px] leading-relaxed">
+            <strong class="text-[#D9AD98]">💡 比例与气质秘诀：</strong>${st.secret}
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    // =========================================================================
+    // 3.5 新增：灵感与收藏夹管理系统 (造型师方案收藏 + 博主美图解析收藏 + 我的优化收藏)
+    // =========================================================================
+    let savedLooksList = [
+      {
+        id: 'versatile_maxmara_0',
+        category: 'aura',
+        catLabel: '造型师一衣多穿',
+        title: 'Max Mara 驼色浴袍大衣 · The Row 极简知识分子风',
+        subtitle: '敞开穿后系带 + MaX奶油白双袋毛衣 + Arket深卡其绿灯芯绒裤',
+        palette: ['#B68A5E', '#F5F2EB', '#4B5332', '#3E2723'],
+        items: [
+          '外披：Max Mara 焦糖驼色浴袍大衣',
+          '内搭：MaX 奶油白双胸袋羊毛衫 (S码丰胸)',
+          '下装：Arket 深卡其绿灯芯绒阔腿裤 (38码藏胯)',
+          '配饰：10-11mm 怪色爱迪生孔雀金耳钉 + 玳瑁框镜'
+        ],
+        note: '背后腰带收紧勾勒72cm细腰，奶油白双胸袋毛衣既提亮脸部，又解决76cm窄胸撑不起大衣的痛点。',
+        imgData: null,
+        garmentKey: 'maxmara',
+        savedTime: '已预设珍藏'
+      },
+      {
+        id: 'blogger_preset_1',
+        category: 'blogger',
+        catLabel: '博主灵感转化',
+        title: 'Prada 秀场博主：深咖四袋针织 + 湖水青叠穿白阔腿裤',
+        subtitle: 'CHICJOC 图1同款知识分子撞色 · 暖秋皮满分照穿模板',
+        palette: ['#3E2F28', '#38A3A5', '#F5F2EB', '#8C6D46'],
+        items: [
+          '外套：深咖啡褐四口袋V领开衫（解开下2颗扣）',
+          '叠穿：复古湖水青绿V领针织打底',
+          '下装：奶白色高腰垂感精纺阔腿裤',
+          '珠宝：10-11mm 爱迪生孔雀金耳钉呼应青绿内搭'
+        ],
+        note: '博主原图精髓在于胸前5%面积的湖水青跳色，完美点亮暖黄皮；下方倒V开口配白阔腿裤直接抹平93.5cm宽胯。',
+        imgData: null,
+        garmentKey: 'arket_pants',
+        savedTime: '博主爆款归档'
+      },
+      {
+        id: 'mine_preset_1',
+        category: 'mine',
+        catLabel: '我的穿搭优化',
+        title: '健身房瑜伽裤逆袭公式：堆堆袜 + 厚底老爹鞋平衡法',
+        subtitle: '彻底告别“上大下小”倒三角悬空感',
+        palette: ['#8B864E', '#3E2723', '#F5F2EB', '#D8C6B2'],
+        items: [
+          '上装：Icebreaker 芥末绿/豆沙色羊毛T恤 (S码微盖髋)',
+          '下装：深咖或墨绿哑光收腹瑜伽裤',
+          '鞋袜：奶油白中筒堆堆袜(小腿拉褶) + 3.5cm米色老爹鞋'
+        ],
+        note: '用奶油白堆堆袜和厚底老爹鞋为纤细小腿和脚踝“增重”，在视觉上拉平与93.5cm髋部的宽度落差。',
+        imgData: null,
+        garmentKey: 'cestm_vest',
+        savedTime: '实拍急救处方'
+      }
+    ];
+
+    let currentSavedFilter = 'all';
+    let uploadedBloggerBase64 = null;
+
+    function showToast(msg) {
+      const t = document.getElementById('auraToast');
+      document.getElementById('auraToastText').textContent = msg;
+      t.classList.remove('hidden');
+      t.classList.add('flex');
+      setTimeout(() => {
+        t.classList.add('hidden');
+        t.classList.remove('flex');
+      }, 2200);
+    }
+
+    function updateSavedCounters() {
+      const count = savedLooksList.length;
+      const b1 = document.getElementById('versatileSavedCount');
+      const b2 = document.getElementById('totalSavedCountBadge');
+      const b3 = document.getElementById('navSavedBadge');
+      if (b1) b1.textContent = count;
+      if (b2) b2.textContent = count;
+      if (b3) b3.textContent = count;
+    }
+
+    function toggleSaveVersatileLook() {
+      const g = versatileDatabase[currentGarmentKey];
+      const st = g.styles[currentStyleIdx];
+      const lookId = `versatile_${currentGarmentKey}_${currentStyleIdx}`;
+      const existingIdx = savedLooksList.findIndex(x => x.id === lookId);
+
+      if (existingIdx > -1) {
+        savedLooksList.splice(existingIdx, 1);
+        showToast('已从收藏夹移除该套搭配');
+      } else {
+        savedLooksList.unshift({
+          id: lookId,
+          category: 'aura',
+          catLabel: '造型师一衣多穿',
+          title: `${g.name.split(' (')[0]} · ${st.styleName.split(' · ')[1] || st.styleName}`,
+          subtitle: st.vibeTag,
+          palette: st.palette,
+          items: st.headToToe.map(r => `${r.part}：${r.item}`),
+          note: st.secret,
+          imgData: currentGarmentKey === 'custom_upload' ? uploadedGarmentBase64 : null,
+          garmentKey: currentGarmentKey,
+          savedTime: '刚刚收藏'
+        });
+        showToast('❤️ 已收藏至「我的专属穿搭收藏夹」');
+      }
+      updateSavedCounters();
+      renderVersatileLook();
+      renderSavedLooks(currentSavedFilter);
+    }
+
+    function saveCurrentAuditToCollection() {
+      if (!currentAuditData) return;
+      const newId = 'audit_' + Date.now();
+      savedLooksList.unshift({
+        id: newId,
+        category: 'mine',
+        catLabel: '我的穿搭优化',
+        title: currentAuditData.title,
+        subtitle: `综合评分 ${currentAuditData.totalScore}分 · ${currentAuditData.verdictTag}`,
+        palette: ['#8E443D', '#F5F2EB', '#4B5332', '#D4AF37'],
+        items: [
+          currentAuditData.step1Fix || currentAuditData.colorComment,
+          currentAuditData.step2Fix || currentAuditData.bodyComment,
+          currentAuditData.step3Fix || currentAuditData.stylistFix || ''
+        ].filter(Boolean),
+        note: `主理人诊断：${currentAuditData.bodyComment}`,
+        imgData: uploadedAuditBase64,
+        garmentKey: 'max_knit',
+        savedTime: '刚刚归档'
+      });
+      updateSavedCounters();
+      renderSavedLooks(currentSavedFilter);
+      showToast('✨ 已将您的穿搭优化方案存入收藏夹！');
+    }
+
+    function handleBloggerUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        uploadedBloggerBase64 = evt.target.result;
+        const imgEl = document.getElementById('bloggerPreviewImg');
+        imgEl.src = uploadedBloggerBase64;
+        imgEl.classList.remove('hidden');
+        document.getElementById('bloggerUploadIcon').classList.add('hidden');
+        document.getElementById('bloggerUploadTitle').textContent = '博主穿搭图已就绪 · 点击右侧【解析并收藏】';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function saveBloggerLookToCollection() {
+      const note = document.getElementById('bloggerNoteInput').value || '超喜欢的博主高智感穿搭';
+      const btn = document.getElementById('saveBloggerBtn');
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i> 解析收藏中...`;
+      lucide.createIcons();
+
+      let parsedTitle = `博主灵感：${note}`;
+      let parsedSubtitle = '已为您转化为【暖秋色盘 × 76窄胸/93.5宽胯】照穿版本';
+      let parsedItems = [
+        '上装转化：选正肩/带胸袋款奶油白或暖咖上衣（S码填充76cm胸围）',
+        '下装转化：高腰垂坠阔腿裤或挺括A字裙（卡住72cm细腰，隐形93.5cm宽胯）',
+        '配饰点睛：10-11mm怪色爱迪生孔雀金耳钉 + 玳瑁墨镜修饰宽腮帮'
+      ];
+      let parsedTip = '照穿博主搭配的核心：避开原图可能存在的冷白/冷黑，全部置换为您衣橱里的奶油白、深咖啡褐与深卡其绿！';
+
+      if (uploadedBloggerBase64) {
+        try {
+          const apiKey = "";
+          const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+          const base64Clean = uploadedBloggerBase64.split(',')[1];
+          const mimeType = uploadedBloggerBase64.split(';')[0].split(':')[1] || "image/jpeg";
+
+          const payload = {
+            contents: [{
+              role: "user",
+              parts: [
+                { text: `客户发来一张喜欢的博主穿搭图，备注：${note}。客户是41岁暖秋型肤色，166cm，76cm窄胸/72cm细腰/93.5cm宽胯梨形，娃娃脸宽腮帮。请拆解这套博主穿搭并转化为适合她的照穿方案，返回严格JSON：{"title":"简短吸引人的标题","subtitle":"风格亮点一句话","items":["上装怎么穿","下装怎么穿","鞋包配饰怎么配"],"tip":"针对她窄胸宽胯的照穿心机"}` },
+                { inlineData: { mimeType, data: base64Clean } }
+              ]
+            }],
+            generationConfig: { responseMimeType: "application/json" }
+          };
+          const res = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+          const result = await res.json();
+          const txt = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (txt) {
+            const obj = JSON.parse(txt);
+            parsedTitle = obj.title || parsedTitle;
+            parsedSubtitle = obj.subtitle || parsedSubtitle;
+            parsedItems = obj.items || parsedItems;
+            parsedTip = obj.tip || parsedTip;
+          }
+        } catch (e) {
+          // 离线优雅回退
+        }
+      }
+
+      savedLooksList.unshift({
+        id: 'blogger_' + Date.now(),
+        category: 'blogger',
+        catLabel: '博主灵感转化',
+        title: parsedTitle,
+        subtitle: parsedSubtitle,
+        palette: ['#9E8E82', '#F5F2EB', '#4B5332', '#352822'],
+        items: parsedItems,
+        note: parsedTip,
+        imgData: uploadedBloggerBase64,
+        garmentKey: 'maxmara',
+        savedTime: '刚刚收藏'
+      });
+
+      document.getElementById('bloggerNoteInput').value = '';
+      btn.disabled = false;
+      btn.innerHTML = `<i data-lucide="heart" class="w-3.5 h-3.5 fill-current"></i> 解析并收藏`;
+      updateSavedCounters();
+      renderSavedLooks('all');
+      showToast('🌟 博主搭配已为您拆解并存入收藏夹！');
+      lucide.createIcons();
+    }
+
+    function removeSavedLook(id) {
+      savedLooksList = savedLooksList.filter(x => x.id !== id);
+      updateSavedCounters();
+      renderSavedLooks(currentSavedFilter);
+      renderVersatileLook();
+      showToast('已移除该条收藏');
+    }
+
+    function filterSavedLooks(cat, btnEl) {
+      currentSavedFilter = cat;
+      document.querySelectorAll('#savedFilterTabs .s-filter-btn').forEach(b => {
+        b.className = "s-filter-btn px-2.5 py-1 rounded-lg text-[10px] font-bold bg-[#F8F5F2] text-gray-500";
+      });
+      if (btnEl) {
+        btnEl.className = "s-filter-btn active px-2.5 py-1 rounded-lg text-[10px] font-bold bg-[#8E443D] text-white";
+      }
+      renderSavedLooks(cat);
+    }
+
+    function renderSavedLooks(filter = 'all') {
+      const box = document.getElementById('savedLooksContainer');
+      if (!box) return;
+      const list = filter === 'all' ? savedLooksList : savedLooksList.filter(x => x.category === filter);
+
+      if (list.length === 0) {
+        box.innerHTML = `
+          <div class="py-10 text-center text-gray-400 space-y-2">
+            <i data-lucide="bookmark" class="w-8 h-8 mx-auto opacity-40"></i>
+            <p class="text-xs font-bold">该分类下暂无收藏</p>
+            <p class="text-[10px]">去「一衣多穿」点红心，或在上方上传您喜欢的博主穿搭吧！</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      box.innerHTML = list.map(item => {
+        const badgeStyle = item.category === 'blogger'
+          ? 'bg-amber-100 text-amber-900'
+          : item.category === 'mine'
+          ? 'bg-emerald-100 text-emerald-900'
+          : 'bg-[#8E443D]/10 text-[#8E443D]';
+
+        const mockSt = {
+          palette: item.palette || ['#B68A5E', '#F5F2EB', '#4B5332', '#3E2723'],
+          headToToe: (item.items || []).map(t => ({ part: '单品', item: t, hex: '#8E443D' }))
+        };
+
+        const visualBlock = item.imgData ? `
+          <div class="grid grid-cols-5 gap-2.5 items-center bg-[#F8F5F2] p-2.5 rounded-2xl border border-[#EAE2D6]">
+            <div class="col-span-2 h-40 rounded-xl overflow-hidden border border-black/10 shadow-sm">
+              <img src="${item.imgData}" class="w-full h-full object-cover" />
+            </div>
+            <div class="col-span-3 space-y-1.5 text-[11px]">
+              <p class="text-[10px] font-bold text-[#8E443D] uppercase">主理人为您转化的照穿清单：</p>
+              ${item.items.map(line => `<p class="text-gray-700 leading-snug bg-white p-2 rounded-lg border border-gray-100">• ${line}</p>`).join('')}
+            </div>
+          </div>
+        ` : `
+          <div class="space-y-2">
+            ${generateOutfitFashionIllustrationSVG(mockSt, item.garmentKey || 'maxmara')}
+            <div class="grid grid-cols-1 gap-1.5 pt-1 text-[11px]">
+              ${item.items.map(line => `<p class="text-gray-700 bg-[#F8F5F2] px-3 py-1.5 rounded-xl font-medium">• ${line}</p>`).join('')}
+            </div>
+          </div>
+        `;
+
+        return `
+          <div class="p-4 bg-white rounded-3xl border border-[#EAE2D6] shadow-sm space-y-3">
+            <div class="flex justify-between items-start gap-2">
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[9px] font-bold px-2 py-0.5 rounded-full ${badgeStyle}">${item.catLabel}</span>
+                  <span class="text-[9px] text-gray-400">${item.savedTime}</span>
+                </div>
+                <h4 class="text-xs md:text-sm font-bold text-[#2D241E] mt-1">${item.title}</h4>
+                <p class="text-[10px] text-gray-500">${item.subtitle}</p>
+              </div>
+              <button onclick="removeSavedLook('${item.id}')" class="text-gray-300 hover:text-rose-600 p-1 transition" title="取消收藏">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            ${visualBlock}
+
+            <div class="p-3 bg-[#2D241E] text-white rounded-2xl text-[11px] leading-relaxed">
+              <strong class="text-[#D9AD98]">📌 照穿备忘：</strong>${item.note}
+            </div>
+          </div>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function switchTabById(tabId) {
+      const btn = document.getElementById(`nav-${tabId}`);
+      if (btn) switchTab(tabId, btn);
+    }
+
+    // =========================================================================
+    // 4. TAB 5: 6大高阶风格定制系统 & 已审实战衣橱红黑榜数据库
+    // =========================================================================
+    const bespokeStylesData = {
+      intellectual: {
+        name: "高智知识分子风",
+        sub: "The Row / Phoebe Philo",
+        icon: "book-open",
+        manifesto: "不靠露肤和紧身讨好任何人，用微宽松的精纺筋骨感、暖调大地色与琥珀金框镜，穿出41岁主理人的智性统治力。",
+        keyFormula: "CHICJOC深咖四袋开衫 + 湖水青绿内搭 + 奶白垂坠阔腿裤 + 爱迪生孔雀金耳钉",
+        veto: "一票否决：松垮印字卫衣、冷艳玫红内搭、廉价化纤面料"
+      },
+      oldmoney: {
+        name: "静奢老钱松弛风",
+        sub: "Loro Piana / 之禾 ICICLE",
+        icon: "award",
+        manifesto: "把昂贵藏在天然无染色的山羊绒、桑蚕丝与亚麻肌理里。上软下硬，温润如玉却自带边界感。",
+        keyFormula: "Max Mara焦糖驼浴袍大衣 + 之禾暖灰褐羊绒衫 + Arket深卡其绿灯芯绒裤 + 巴洛克金珠",
+        veto: "一票否决：全身软塌针织睡衣感、刺眼大Logo、荧光亮色"
+      },
+      powerboss: {
+        name: "干练大女主气场",
+        sub: "金南珠 / 精英决策者",
+        icon: "briefcase",
+        manifesto: "用38cm正肩垫肩西装与平直肩马甲强力扩充76cm窄胸，死死锁住72cm高腰，走路带风。",
+        keyFormula: "C'EST M深炭灰双面尼马甲 + 奶油白飘带真丝衬衫 + 浓咖啡阔腿西裤 + 红棕唇妆",
+        veto: "一票否决：溜肩垮塌外套、包臀紧身一步裙、3号冷灰死板眉"
+      },
+      athflow: {
+        name: "年轻活力 Athflow",
+        sub: "高街混搭 / 显瘦运动风",
+        icon: "activity",
+        manifesto: "告别‘上粗下细’的瑜伽裤尴尬！用堆堆袜与厚底老爹鞋为脚踝增重，上半身用美利奴羊毛T与披肩扩容。",
+        keyFormula: "Icebreaker芥末绿/豆沙色羊毛T + 深咖瑜伽裤 + 奶油白中筒堆堆袜 + 3.5cm米色老爹鞋",
+        veto: "一票否决：瑜伽裤配隐形船袜+薄底鞋、冰蓝色/凤仙粉运动衣"
+      },
+      architectural: {
+        name: "先锋建筑雕塑感",
+        sub: "TOTEME / 廓形美学",
+        icon: "hexagon",
+        manifesto: "把衣服当成重塑骨相的建筑！用宽袖、收腰褶皱与伞状下摆，在物理空间上直接改写窄胸宽胯比例。",
+        keyFormula: "Fairy Wang奶白宽袖收腰亚麻上衣 + 垂感阔腿长裤 + 18K拉丝金几何手镯 + SHIRO #1I03甲油",
+        veto: "一票否决：毫无版型的软塌T恤、卡在胯部最宽处的短上衣"
+      },
+      frenchwarm: {
+        name: "暖调法式复古风",
+        sub: "Lemaire / 摩登浪漫",
+        icon: "sun",
+        manifesto: "用深咖底奶油波点、干枯木玫瑰粉与大波浪檐草帽，柔化宽腮帮线条，散发迷人的秋日电影感。",
+        keyFormula: "MaX暖烟粉双胸袋羊毛衫 + 奶油白亚麻阔腿裤 + 藏青大斜波浪檐草帽 + 琥珀金豹纹乐福鞋",
+        veto: "一票否决：窄檐钟形帽（图4款）、冷黑白大波点、荧光粉腮红"
+      }
+    };
+
+    function renderBespokeStyles(selectedKey = 'intellectual') {
+      const grid = document.getElementById('bespokeStyleGrid');
+      const card = document.getElementById('bespokePrescriptionCard');
+      if (!grid || !card) return;
+
+      grid.innerHTML = Object.keys(bespokeStylesData).map(k => {
+        const item = bespokeStylesData[k];
+        const active = k === selectedKey;
+        return `
+          <button onclick="renderBespokeStyles('${k}')" class="p-3.5 rounded-2xl border-2 text-left transition ${
+            active ? 'border-[#8E443D] bg-[#8E443D]/5 shadow-sm' : 'border-[#EAE2D6] bg-[#F8F5F2]/60'
+          }">
+            <div class="flex items-center justify-between">
+              <i data-lucide="${item.icon}" class="w-4 h-4 ${active ? 'text-[#8E443D]' : 'text-gray-400'}"></i>
+              ${active ? '<span class="text-[9px] font-bold bg-[#8E443D] text-white px-1.5 py-0.5 rounded">已激活</span>' : ''}
+            </div>
+            <p class="text-xs font-bold text-[#2D241E] mt-2">${item.name}</p>
+            <p class="text-[10px] text-gray-400 truncate">${item.sub}</p>
+          </button>
+        `;
+      }).join('');
+
+      const curr = bespokeStylesData[selectedKey];
+      card.innerHTML = `
+        <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+          <div>
+            <span class="text-[10px] font-bold text-[#8E443D] uppercase">${curr.sub}</span>
+            <h3 class="text-sm font-bold text-[#2D241E] mt-0.5">${curr.name} · 专属定制处方</h3>
+          </div>
+          <span class="text-[10px] font-bold bg-amber-100 text-amber-900 px-2.5 py-1 rounded-full">主理人钦定</span>
+        </div>
+        <p class="text-xs text-gray-600 leading-relaxed italic bg-[#F8F5F2] p-3.5 rounded-2xl border border-[#EAE2D6]">
+          “${curr.manifesto}”
+        </p>
+        <div class="space-y-2 text-xs">
+          <div class="p-3 bg-emerald-50/90 rounded-2xl border border-emerald-100 text-emerald-950">
+            <p class="text-[10px] font-bold text-emerald-800 uppercase mb-0.5">✅ 直接照穿公式：</p>
+            <p class="font-bold">${curr.keyFormula}</p>
+          </div>
+          <div class="p-3 bg-rose-50/90 rounded-2xl border border-rose-100 text-rose-900">
+            <p class="text-[11px] font-medium">❌ ${curr.veto}</p>
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    const wardrobeItems = [
+      {
+        brand: "CHICJOC",
+        name: "90S复古四口袋小V领针织开衫",
+        category: "top",
+        score: 98,
+        colorHex: "#3E2F28",
+        subHex: "#38A3A5",
+        choice: "✅ 必入：图1【深咖啡褐外套 + 湖水青绿内搭】",
+        avoid: "❌ 避雷：图2【炭黑杂灰 + 冷艳玫红内搭】(显脸黄老气)",
+        note: "正面4个掀盖口袋完美丰盈76cm窄胸，解开下端2颗扣配白阔腿裤，93.5cm宽胯瞬间隐形。"
+      },
+      {
+        brand: "MaX Leisure",
+        name: "26秋冬双胸袋Polo领100%羊毛衫",
+        category: "top",
+        score: 98,
+        colorHex: "#F5F2EB",
+        subHex: "#C59B9B",
+        choice: "✅ 必入：【奶油白】或【图2暖烟粉/干枯玫瑰】· 锁死 S码(肩38/胸92)",
+        avoid: "❌ 避雷：纯黑、冷中灰；慎选M码(98胸围对76cm窄胸偏空旷)",
+        note: "双胸袋为窄胸扩容，Polo领拉长脖颈修饰宽腮帮，下摆侧开叉放过宽胯。"
+      },
+      {
+        brand: "ARKET",
+        name: "高腰深卡其绿灯芯绒阔腿裤",
+        category: "bottom",
+        score: 99,
+        colorHex: "#4B5332",
+        choice: "✅ 必入：深卡其绿 · 锁死欧码 38码",
+        avoid: "❌ 避雷：36码易卡裆显腹股沟三角区紧绷",
+        note: "硬挺灯芯绒纵向坑条完全不贴93.5cm臀胯肉感，是搭配软针织上衣的定海神针。"
+      },
+      {
+        brand: "Icebreaker",
+        name: "125 Sphere & Core 美利奴羊毛短袖T恤",
+        category: "top",
+        score: 95,
+        colorHex: "#8E5F5F",
+        subHex: "#8B864E",
+        choice: "✅ 必入：125选【豆沙红/甜醋花褐】；Core户外选【芥末绿】· S码",
+        avoid: "❌ 避雷：霞粉、山岚绿、凤仙粉、苍穹冷灰",
+        note: "高智感叠穿基石，微盖髋部1/3配瑜伽裤与堆堆袜绝佳。"
+      },
+      {
+        brand: "高定珠宝严选",
+        name: "10-11mm 极品怪色爱迪生孔雀金耳钉",
+        category: "acc",
+        score: 99,
+        colorHex: "#8C6D46",
+        subHex: "#3A4E48",
+        choice: "✅ 必入：图1【10-11mm立体圆珠怪色爱迪生孔雀金】或【微垂排钻款】",
+        avoid: "❌ 避雷：图2【12-13mm扁平冷白海水马贝】(横向拉宽腮帮且冷白显黄)",
+        note: "3D球面极光将视线牢牢锁在眼周上方，物理级提拉娃娃脸宽腮帮。"
+      },
+      {
+        brand: "夏日防晒草帽",
+        name: "藏青色中大斜波浪檐草编渔夫帽",
+        category: "acc",
+        score: 96,
+        colorHex: "#232F3E",
+        choice: "✅ 必入：图3【中大斜波浪帽檐 + 高挺帽冠】(帽檐宽过腮帮)",
+        avoid: "❌ 避雷：图4【窄檐贴头钟形帽】(对比之下显腮帮更大)",
+        note: "佩戴时两侧散落微卷发丝并搭配大框玳瑁墨镜，显脸小30%以上。"
+      },
+      {
+        brand: "Rhode & Bobbi Brown & SHIRO",
+        name: "暖秋本命彩妆与足部美甲三件套",
+        category: "acc",
+        score: 99,
+        colorHex: "#A66E5E",
+        subHex: "#9A5B53",
+        choice: "✅ 必入：Rhode #Toasted Teddy腮红 + BB #2桃褐眉笔 + SHIRO #1I03肉桂甲油",
+        avoid: "❌ 避雷：Piggy冷粉腮红、#3雅灰眉笔、贝壳灰蓝/电光紫粉脚甲油",
+        note: "从面部到脚趾统一在温润的陶土肉桂与鼠尾草绿调中，彻底告别显黑显脏。"
+      }
+    ];
+
+    function renderWardrobe(filter = 'all') {
+      const container = document.getElementById('wardrobeList');
+      const filtered = filter === 'all' ? wardrobeItems : wardrobeItems.filter(i => i.category === filter);
+      container.innerHTML = filtered.map(item => `
+        <div class="bg-white rounded-3xl p-4 border border-[#EAE2D6] shadow-sm space-y-2.5">
+          <div class="flex justify-between items-start">
+            <div class="flex items-center gap-2.5">
+              <div class="flex -space-x-1.5">
+                <div class="w-8 h-8 rounded-xl shadow-inner border border-black/10" style="background-color: ${item.colorHex}"></div>
+                ${item.subHex ? `<div class="w-8 h-8 rounded-xl shadow-inner border-2 border-white" style="background-color: ${item.subHex}"></div>` : ''}
+              </div>
+              <div>
+                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">${item.brand}</span>
+                <h4 class="text-xs font-bold text-[#2D241E]">${item.name}</h4>
+              </div>
+            </div>
+            <span class="text-[11px] font-black text-[#8E443D] bg-[#8E443D]/10 px-2 py-0.5 rounded-lg">${item.score}分</span>
+          </div>
+          <div class="grid grid-cols-1 gap-1 pt-1 text-[11px]">
+            <p class="font-bold text-emerald-800 bg-emerald-50/90 px-2.5 py-1 rounded-lg">${item.choice}</p>
+            <p class="text-rose-700 bg-rose-50/70 px-2.5 py-1 rounded-lg">${item.avoid}</p>
+          </div>
+          <p class="text-[11px] text-gray-500 leading-relaxed pt-0.5"><strong>📐 造型师批注：</strong>${item.note}</p>
+        </div>
+      `).join('');
+    }
+
+    function filterWardrobe(cat) {
+      document.querySelectorAll('#wardrobeFilter .filter-btn').forEach(btn => {
+        if (btn.dataset.filter === cat) {
+          btn.className = "filter-btn active px-2.5 py-1 rounded-lg text-[10px] font-bold bg-[#8E443D] text-white";
+        } else {
+          btn.className = "filter-btn px-2.5 py-1 rounded-lg text-[10px] font-bold bg-[#F8F5F2] text-gray-500";
+        }
+      });
+      renderWardrobe(cat);
+    }
+
+    // 底部 Tab 切换与弹窗管理
+    function switchTab(tabId, btnEl) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.getElementById(`tab-${tabId}`).classList.add('active');
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.className = "nav-btn flex flex-col items-center gap-1 py-1 px-2 text-gray-400 font-medium transition";
+      });
+      btnEl.className = "nav-btn flex flex-col items-center gap-1 py-1 px-2 text-[#8E443D] font-bold transition";
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openModal(id) {
+      const m = document.getElementById(id);
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+    }
+    function closeModal(id) {
+      const m = document.getElementById(id);
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+    }
+
+    window.onload = function () {
+      render60Colors('all');
+      renderPatternMatrix('houndstooth');
+      renderTabooSection(1);
+      loadPresetAudit('my_yoga_bad');
+      updateSavedCounters();
+      renderVersatileLook();
+      renderSavedLooks('all');
+      renderBespokeStyles('intellectual');
+      renderWardrobe('all');
+      lucide.createIcons();
+    };
+  </script>
+</body>
+</html>
